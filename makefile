@@ -1,8 +1,11 @@
 INC_DIR = include
 TARGET = hw1
+
 all: $(TARGET)
+
+$(TARGET): main.o Shapes.o Media.o Sort.o
 ifeq (${OS}, Windows_NT) 
-	g++ -o $(TARGET).exe main.o Shapes.o Media.o Sort.o -lgtest
+	g++ -o $(TARGET) main.o Shapes.o Media.o Sort.o -lgtest
 else
 $(TARGET): main.o Media.o Shapes.o Sort.o
 	g++ -o $(TARGET) main.o Shapes.o Media.o Sort.o -lgtest -lpthread
@@ -23,7 +26,7 @@ Sort.o: $(INC_DIR)/Sort.h Sort.cpp
 
 clean:	
 ifeq (${OS}, Windows_NT) 
-	del *.o $(TARGET).exe
+	del *.o *.exe
 else
 	rm -f *.o $(TARGET)
 endif
