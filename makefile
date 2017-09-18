@@ -7,7 +7,6 @@ $(TARGET): main.o Shapes.o Media.o Sort.o
 ifeq (${OS}, Windows_NT) 
 	g++ -o $(TARGET) main.o Shapes.o Media.o Sort.o -lgtest
 else
-$(TARGET): main.o Media.o Shapes.o Sort.o
 	g++ -o $(TARGET) main.o Shapes.o Media.o Sort.o -lgtest -lpthread
 endif
 
