@@ -25,8 +25,6 @@ clean:
 ifeq (${OS}, Windows_NT) 
 	rm -f *.o $(TARGET).exe
 else
-$(TARGET): main.o Media.o Shapes.o Sort.o
 	rm -f *.o $(TARGET)
 endif
 	
-
