@@ -1,9 +1,12 @@
 INC_DIR = include
 TARGET = hw1
 all: $(TARGET)
-
+ifeq (${OS}, Windows_NT) 
+	g++ -o $(NAME) main.o Shapes.o Media.o Sort.o -lgtest
+else
 $(TARGET): main.o Media.o Shapes.o Sort.o
 	g++ -o $(TARGET) main.o Shapes.o Media.o Sort.o -lgtest -lpthread
+endif
 
 	
 main.o: main.cpp utSort.h
@@ -19,4 +22,11 @@ Sort.o: $(INC_DIR)/Sort.h Sort.cpp
 	g++ -std=gnu++0x -c Sort.cpp
 
 clean:	
+ifeq (${OS}, Windows_NT) 
+	rm -f *.o $(TARGET).exe
+else
+$(TARGET): main.o Media.o Shapes.o Sort.o
 	rm -f *.o $(TARGET)
+endif
+	
+
