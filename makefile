@@ -2,7 +2,7 @@ INC_DIR = include
 TARGET = hw1
 all: $(TARGET)
 ifeq (${OS}, Windows_NT) 
-	g++ -o $(NAME) main.o Shapes.o Media.o Sort.o -lgtest
+	g++ -o $(TARGET) main.o Shapes.o Media.o Sort.o -lgtest
 else
 $(TARGET): main.o Media.o Shapes.o Sort.o
 	g++ -o $(TARGET) main.o Shapes.o Media.o Sort.o -lgtest -lpthread
