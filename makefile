@@ -23,7 +23,7 @@ Sort.o: $(INC_DIR)/Sort.h Sort.cpp
 
 clean:	
 ifeq (${OS}, Windows_NT) 
-	rm -f *.o $(TARGET).exe
+	del *.o $(TARGET).exe
 else
 	rm -f *.o $(TARGET)
 endif
