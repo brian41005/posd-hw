@@ -18,5 +18,5 @@ void Sort::sortByDecreasingArea(std::list<Shape *> * shapeList){
     shapeList->sort([](const Shape *s1, const Shape *s2){ return s1->area() > s2->area();});
 }
 void Sort::sortByIncreasingCompactness(std::list<Shape *> * shapeList){
-    
+    shapeList->sort([](const Shape *s1, const Shape *s2){ return s1->area() < s2->area();});
 }
