@@ -6,7 +6,7 @@ all: $(TARGET)
 
 $(TARGET): main.o atom.o number.o variable.o simpleObj.o
 ifeq (${OS}, Windows_NT) 
-	g++ -o $(TARGET) main.o atom.o number.o variable.o simpleObj.o -lgtest -lpthread
+	g++ -o $(TARGET) main.o atom.o number.o variable.o simpleObj.o -lgtest
 else
 	g++ -o $(TARGET) main.o atom.o number.o variable.o simpleObj.o -lgtest -lpthread
 endif
