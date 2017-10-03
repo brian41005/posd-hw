@@ -5,10 +5,9 @@
 using namespace std;
 
 class Atom {
- public:
-  string symbol;
-
-  Atom(string s);
-  bool operator==(Atom a);
+	public:
+  		string symbol;
+  		Atom(string s);
+  		bool operator==(Atom a);
 };
 #endif

@@ -2,10 +2,22 @@
 #define UTTERM_H
 
 #include "include/atom.h"
+#include "include/number.h"
+#include "include/variable.h"
 
 //test Number.value()
 
-TEST (Number,ctor) {
+TEST (Number, ctor) {
+    Number n("-1");
+    ASSERT_EQ(n.value(), -1);
+    Number n("-1.01");
+    ASSERT_EQ(n.value(), -1.01);
+    Number n("0");
+    ASSERT_EQ(n.value(), 0);
+    Number n("1");
+    ASSERT_EQ(n.value(), 1);
+    Number n("1.01");
+    ASSERT_EQ(n.value(), 1.01);
 
 }
 //test Number.symbol()
