@@ -1,12 +1,16 @@
 #ifndef SIMPLEOBJ_H
 #define SIMPLEOBJ_H
 
-class Number;
+#include <string>
+//class Number;
 
+using namespace std;
 
 class SimpleObj{
     public:
-        virtual bool match(const Number n) const = 0;
+        virtual string symbol() const = 0;
+        virtual string value() const = 0;
+        virtual bool match(SimpleObj* simple) = 0;
 };
 
 #endif

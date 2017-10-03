@@ -1,17 +1,23 @@
 #include "../include/number.h"
+#include "../include/variable.h"
+#include <string> 
+#include <typeinfo>
 
-Number::Number(string s):_symbol(s) {
+Number::Number(int n):_n(n) {
 
 }
 
-float Number::value() const {
-    return stof(_symbol);
+string Number::value() const {
+    return to_string(this->_n);
 }
 
 string Number::symbol() const {
-    return _symbol;
+    return to_string(this->_n);
 }
 
-bool Number::match(const Number n) const {
-    return _symbol == n.symbol();
+bool Number::match(SimpleObj* simple){
+    if (typeid(*simple) == typeid(Variable))
+        return simple->match(this);
+    else
+        return this->symbol() == simple->symbol();
 }

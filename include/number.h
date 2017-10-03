@@ -9,13 +9,13 @@ using namespace std;
 class Number: public SimpleObj{
 
 private:
-    string _symbol;
+    int _n;
 
 public:
-    Number(string s);
-    float value() const;
+    Number(int n);
+    string value() const;
     string symbol() const;
-    bool match(const Number n) const;
+    bool match(SimpleObj* simple);
 
 };
 #endif

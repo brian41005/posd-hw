@@ -13,19 +13,19 @@ endif
 
 	
 main.o: main.cpp utTerm.h
-	g++ -std=gnu++0x -c main.cpp
+	g++ -std=c++11 -c main.cpp
 
 atom.o: $(INC_DIR)/atom.h $(SRC)/atom.cpp
-	g++ -std=gnu++0x -c $(SRC)/atom.cpp
+	g++ -std=c++11 -c $(SRC)/atom.cpp
 
 number.o: $(INC_DIR)/number.h $(SRC)/number.cpp
-	g++ -std=gnu++0x -c $(SRC)/number.cpp
+	g++ -std=c++11 -c $(SRC)/number.cpp
 
 variable.o: $(INC_DIR)/variable.h $(SRC)/variable.cpp
-	g++ -std=gnu++0x -c $(SRC)/variable.cpp
+	g++ -std=c++11 -c $(SRC)/variable.cpp
 
 simpleObj.o: $(INC_DIR)/simpleObj.h $(SRC)/simpleObj.cpp
-	g++ -std=gnu++0x -c $(SRC)/simpleObj.cpp
+	g++ -std=c++11 -c $(SRC)/simpleObj.cpp
 
 
 clean:	
