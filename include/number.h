@@ -15,7 +15,7 @@ public:
     Number(int n);
     string value() const;
     string symbol() const;
-    bool match(SimpleObj* simple);
+    bool match(SimpleObj& simple);
 
 };
 #endif

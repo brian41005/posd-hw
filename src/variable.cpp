@@ -13,11 +13,11 @@ string Variable::symbol() const{
     return this->_symbol;
 }
 
-bool Variable::match(SimpleObj* simple){
+bool Variable::match(SimpleObj& simple){
     if (this->_value == ""){
-        this->_value = simple->value();
+        this->_value = simple.value();
         return true;
     }
     else
-        return  this->_value == simple->value();
+        return  this->_value == simple.value();
 }

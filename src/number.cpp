@@ -3,7 +3,7 @@
 #include <string> 
 #include <typeinfo>
 
-Number::Number(int n):_n(n) {
+Number::Number(int n): _n(n) {
 
 }
 
@@ -15,9 +15,9 @@ string Number::symbol() const {
     return to_string(this->_n);
 }
 
-bool Number::match(SimpleObj* simple){
-    if (typeid(*simple) == typeid(Variable))
-        return simple->match(this);
+bool Number::match(SimpleObj& simple){
+    if (typeid(simple) == typeid(Variable))
+        return simple.match(*this);
     else
-        return this->symbol() == simple->symbol();
+        return this->symbol() == simple.symbol();
 }

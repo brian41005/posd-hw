@@ -15,9 +15,9 @@ string Atom::value() const{
     return this->_symbol;
 }
 
-bool Atom::match(SimpleObj* simple){
-    if (typeid(*simple) == typeid(Variable))
-        return simple->match(this);
+bool Atom::match(SimpleObj& simple){
+    if (typeid(simple) == typeid(Variable))
+        return simple.match(*this);
     else
-        return this->symbol() == simple->symbol();
+        return this->symbol() == simple.symbol();
 }

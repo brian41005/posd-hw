@@ -13,6 +13,6 @@ public:
 	Atom(string s);
 	string symbol() const;
 	string value() const;
-    bool match(SimpleObj* simple);
+    bool match(SimpleObj& simple);
 };
 #endif

@@ -13,6 +13,6 @@ using namespace std;
     Variable(string symbol);
     string value() const;
     string symbol() const;
-    bool match(SimpleObj* simple);
+    bool match(SimpleObj& simple);
  };
 #endif
