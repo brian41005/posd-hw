@@ -1,6 +1,6 @@
 INC_DIR = include
-SRC = src
-TARGET = hw2
+SRC     = src
+TARGET  = hw2
 
 all: $(TARGET)
 
