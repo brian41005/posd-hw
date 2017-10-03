@@ -1,8 +1,6 @@
 #include "../include/variable.h"
 #include <string> 
 
-using namespace std;
-
 Variable::Variable(string symbol): _symbol(symbol){
     this->_value = "";
 }
