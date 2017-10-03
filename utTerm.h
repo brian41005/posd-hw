@@ -6,7 +6,6 @@
 #include "include/variable.h"
 
 //test Number.value()
-
 TEST (Number, ctor) {
     Number n1(-1), n2(0), n3(1);
     ASSERT_EQ(n1.value(), "-1");
@@ -15,6 +14,7 @@ TEST (Number, ctor) {
 
 
 }
+
 //test Number.symbol()
 TEST (Number, symbol) {
     Number n1(-1), n2(0), n3(1);
@@ -22,6 +22,7 @@ TEST (Number, symbol) {
     ASSERT_EQ(n2.symbol(), "0");
     ASSERT_EQ(n3.symbol(), "1");
 }
+
 //?- 25=25.
 //true.
 TEST (Number, matchSuccess) {
@@ -45,6 +46,7 @@ TEST (Number, matchSuccess) {
     ASSERT_TRUE(n1->match(n2));
     delete n1, n2;
 }
+
 //?- 25=0.
 //false.
 TEST (Number, matchFailureDiffValue) {
@@ -167,6 +169,7 @@ TEST (Var, matchSuccessToAtomThenFailureToNumber) {
     ASSERT_EQ(v1->value(), "tom");
     delete v1, a2, n3;
 }
+
 //?- tom=X, 25=X.
 //false.
 TEST (Var, matchSuccessToAtomThenFailureToNumber2) {
@@ -178,6 +181,7 @@ TEST (Var, matchSuccessToAtomThenFailureToNumber2) {
     ASSERT_EQ(v1->value(), "tom");
     delete v1, a2, n3;
 }
+
 //?- X=tom, X=tom.
 //true.
 TEST(Var, reAssignTheSameAtom){
