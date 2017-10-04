@@ -152,4 +152,23 @@ TEST(Var, reAssignTheSameAtom){
     ASSERT_TRUE(v1.match(a3));
     ASSERT_EQ(v1.value(), "tom");
 }
+
+//?- X=X.
+//true.
+TEST(Var, reAssignItself){
+    Variable v1("X");
+    ASSERT_TRUE(v1.match(v1));
+
+}
+
+//?- X=X, X=Y, X=Z.
+//X = Y, Y = Z
+TEST(Var, reAssignDifferentVar){
+    Variable v1("X"), v2("Y"), v3("Z");
+    ASSERT_TRUE(v1.match(v1));
+    ASSERT_TRUE(v1.match(v2));
+    ASSERT_TRUE(v1.match(v3));
+}
+
+
 #endif
