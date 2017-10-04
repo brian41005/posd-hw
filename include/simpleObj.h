@@ -2,7 +2,6 @@
 #define SIMPLEOBJ_H
 
 #include <string>
-//class Number;
 
 using namespace std;
 
