@@ -4,8 +4,10 @@
 #include "simpleObj.h"
 #include <string>
 
- class Variable: public SimpleObj{
-     
+using namespace std;
+
+class Variable: public SimpleObj{
+
  private:
     string _symbol, _value;
  public:

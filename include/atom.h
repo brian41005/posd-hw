@@ -3,6 +3,7 @@
 
 #include "simpleObj.h"
 #include <string>
+
 using namespace std;
 
 class Atom: public SimpleObj {

@@ -14,10 +14,7 @@ string Variable::symbol() const{
 }
 
 bool Variable::match(SimpleObj& simple){
-    if (this->_value == ""){
+    if (this->_value == "")
         this->_value = simple.value();
-        return true;
-    }
-    else
-        return  this->_value == simple.value();
+    return  this->_value == simple.value();
 }
