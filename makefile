@@ -12,8 +12,8 @@ else
 endif
 
 	
-main.o: main.cpp utTerm.h
-	g++ -std=gnu++0x -c main.cpp
+main.o: $(SRC)/main.cpp utTerm.h
+	g++ -std=gnu++0x -c $(SRC)/main.cpp
 
 atom.o: $(INC_DIR)/atom.h $(SRC)/atom.cpp
 	g++ -std=gnu++0x -c $(SRC)/atom.cpp
