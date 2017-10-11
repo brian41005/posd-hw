@@ -1,21 +1,21 @@
 #ifndef NUMBER_H
 #define NUMBER_H
 
-#include "simpleObj.h"
+#include "term.h"
 #include <string>
 
 using namespace std;
 
-class Number: public SimpleObj{
+class Number: public Term{
 
 private:
     int _n;
 
 public:
-    Number(int n);
+    Number(int);
     string value() const;
     string symbol() const;
-    bool match(SimpleObj& simple);
+    bool match(Term&);
 
 };
 #endif

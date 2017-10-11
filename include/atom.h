@@ -1,19 +1,19 @@
 #ifndef ATOM_H
 #define ATOM_H
 
-#include "simpleObj.h"
+#include "term.h"
 #include <string>
 
 using namespace std;
 
-class Atom: public SimpleObj {
+class Atom: public Term {
 
 private:
 	string _symbol;
 public:
-	Atom(string s);
+	Atom(string);
 	string symbol() const;
 	string value() const;
-    bool match(SimpleObj& simple);
+    bool match(Term&);
 };
 #endif

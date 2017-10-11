@@ -1,19 +1,19 @@
 #ifndef VARIABLE_H
 #define VARIABLE_H
 
-#include "simpleObj.h"
+#include "term.h"
 #include <string>
 
 using namespace std;
 
-class Variable: public SimpleObj{
+class Variable: public Term{
 
  private:
     string _symbol, _value;
  public:
-    Variable(string symbol);
+    Variable(string);
     string value() const;
     string symbol() const;
-    bool match(SimpleObj& simple);
+    bool match(Term&);
  };
 #endif

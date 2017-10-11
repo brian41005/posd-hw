@@ -15,9 +15,9 @@ string Number::symbol() const {
     return to_string(this->_n);
 }
 
-bool Number::match(SimpleObj& simple){
-    if (typeid(simple) == typeid(Variable))
-        return simple.match(*this);
+bool Number::match(Term& term){
+    if (typeid(term) == typeid(Variable))
+        return term.match(*this);
     else
-        return this->symbol() == simple.symbol();
+        return this->symbol() == term.symbol();
 }

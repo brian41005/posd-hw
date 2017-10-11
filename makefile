@@ -4,11 +4,11 @@ TARGET  = hw2
 
 all: $(TARGET)
 
-$(TARGET): main.o atom.o number.o variable.o simpleObj.o
+$(TARGET): main.o atom.o number.o variable.o term.o
 ifeq (${OS}, Windows_NT) 
-	g++ -o $(TARGET) main.o atom.o number.o variable.o simpleObj.o -lgtest
+	g++ -o $(TARGET) main.o atom.o number.o variable.o term.o -lgtest
 else
-	g++ -o $(TARGET) main.o atom.o number.o variable.o simpleObj.o -lgtest -lpthread
+	g++ -o $(TARGET) main.o atom.o number.o variable.o term.o -lgtest -lpthread
 endif
 
 	
@@ -24,8 +24,8 @@ number.o: $(INC_DIR)/number.h $(SRC)/number.cpp
 variable.o: $(INC_DIR)/variable.h $(SRC)/variable.cpp
 	g++ -std=gnu++0x -c $(SRC)/variable.cpp
 
-simpleObj.o: $(INC_DIR)/simpleObj.h $(SRC)/simpleObj.cpp
-	g++ -std=gnu++0x -c $(SRC)/simpleObj.cpp
+term.o: $(INC_DIR)/term.h $(SRC)/term.cpp
+	g++ -std=gnu++0x -c $(SRC)/term.cpp
 
 
 clean:	
