@@ -2,6 +2,7 @@
 #define NUMBER_H
 
 #include "term.h"
+#include "variable.h"
 #include <string>
 
 using namespace std;
@@ -15,6 +16,7 @@ public:
     Number(int);
     string value() const;
     string symbol() const;
+    bool match(Variable& v);
     bool match(Term&);
 
 };

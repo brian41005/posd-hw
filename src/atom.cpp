@@ -15,9 +15,10 @@ string Atom::value() const{
     return this->_symbol;
 }
 
+bool Atom::match(Variable& v){
+    return v.match(*this);
+}
+
 bool Atom::match(Term& term){
-    if (typeid(term) == typeid(Variable))
-        return term.match(*this);
-    else
-        return this->symbol() == term.symbol();
+    return this->symbol() == term.symbol();
 }

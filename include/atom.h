@@ -2,6 +2,7 @@
 #define ATOM_H
 
 #include "term.h"
+#include "variable.h"
 #include <string>
 
 using namespace std;
@@ -14,6 +15,7 @@ public:
 	Atom(string);
 	string symbol() const;
 	string value() const;
+	bool match(Variable& v);
     bool match(Term&);
 };
 #endif

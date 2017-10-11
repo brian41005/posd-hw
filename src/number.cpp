@@ -1,5 +1,5 @@
 #include "../include/number.h"
-#include "../include/variable.h"
+
 #include <string> 
 #include <typeinfo>
 
@@ -15,9 +15,10 @@ string Number::symbol() const {
     return to_string(this->_n);
 }
 
+bool Number::match(Variable& v){
+    return v.match(*this);
+}
+
 bool Number::match(Term& term){
-    if (typeid(term) == typeid(Variable))
-        return term.match(*this);
-    else
-        return this->symbol() == term.symbol();
+    return this->symbol() == term.symbol();
 }

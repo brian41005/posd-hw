@@ -8,9 +8,9 @@
 //test Number.value()
 TEST (Number, ctor) {
     Number n1(-1), n2(0), n3(1);
-    ASSERT_EQ(n1.value(), "-1");
-    ASSERT_EQ(n2.value(), "0");
-    ASSERT_EQ(n3.value(), "1");
+    ASSERT_EQ("-1", n1.value());
+    ASSERT_EQ("0", n2.value());
+    ASSERT_EQ("1", n3.value());
 
 
 }
@@ -18,9 +18,9 @@ TEST (Number, ctor) {
 //test Number.symbol()
 TEST (Number, symbol) {
     Number n1(-1), n2(0), n3(1);
-    ASSERT_EQ(n1.symbol(), "-1");
-    ASSERT_EQ(n2.symbol(), "0");
-    ASSERT_EQ(n3.symbol(), "1");
+    ASSERT_EQ("-1", n1.symbol());
+    ASSERT_EQ("0", n2.symbol());
+    ASSERT_EQ("1", n3.symbol());
 }
 
 //?- 25=25.
@@ -52,8 +52,8 @@ TEST (Number, matchSuccessToVar) {
     Number n1(25);
     Variable v2("X");
     ASSERT_TRUE(n1.match(v2));
-    ASSERT_EQ(v2.value(), "25");
-    ASSERT_TRUE(n1.match(v2));
+    ASSERT_EQ("25", v2.value());
+    //ASSERT_TRUE(n1.match(v2));
 }
 
 //?- tom=25.
@@ -70,7 +70,7 @@ TEST (Atom, matchSuccessToVar) {
     Atom a1("tom");
     Variable v2("X");
     ASSERT_TRUE(a1.match(v2));
-    ASSERT_EQ(v2.value(), "tom");
+    ASSERT_EQ("tom", v2.value());
 
 }
 
@@ -81,7 +81,7 @@ TEST (Atom, matchSuccessToVarInstantedToDiffConstant) {
     Variable v2("X");
     ASSERT_TRUE(v2.match(a1));
     ASSERT_TRUE(a1.match(v2));
-    ASSERT_EQ(v2.value(), "tom");
+    ASSERT_EQ("tom", v2.value());
 
 }
 
@@ -92,7 +92,7 @@ TEST (Atom, matchFailureToVarInstantedToDiffConstant) {
     Variable v3("X");
     ASSERT_TRUE(v3.match(a2));
     ASSERT_FALSE(a1.match(v3));
-    ASSERT_EQ(v3.value(), "jerry");
+    ASSERT_EQ("jerry", v3.value());
 
 }
 
@@ -102,7 +102,7 @@ TEST (Var, matchSuccessToNumber) {
     Variable v1("X");
     Number n2(5);
     ASSERT_TRUE(v1.match(n2));
-    ASSERT_EQ(v1.value(), "5");
+    ASSERT_EQ("5", v1.value());
 
 }
 
@@ -114,7 +114,7 @@ TEST (Var, matchFailureToTwoDiffNumbers) {
     Number n3(100);
     ASSERT_TRUE(v1.match(n2));
     ASSERT_FALSE(v1.match(n3));
-    ASSERT_EQ(v1.value(), "25");
+    ASSERT_EQ("25", v1.value());
 
 }
 
@@ -126,7 +126,7 @@ TEST (Var, matchSuccessToAtomThenFailureToNumber) {
     Number n3(25);
     ASSERT_TRUE(v1.match(a2));
     ASSERT_FALSE(v1.match(n3));
-    ASSERT_EQ(v1.value(), "tom");
+    ASSERT_EQ("tom", v1.value());
 }
 
 //?- tom=X, 25=X.
@@ -137,7 +137,7 @@ TEST (Var, matchSuccessToAtomThenFailureToNumber2) {
     Number n3(25);
     ASSERT_TRUE(a2.match(v1));
     ASSERT_FALSE(n3.match(v1));
-    ASSERT_EQ(v1.value(), "tom");
+    ASSERT_EQ("tom", v1.value());
 
 }
 
@@ -150,7 +150,7 @@ TEST(Var, reAssignTheSameAtom){
     ASSERT_TRUE(v1.match(a2));
     ASSERT_TRUE(v1.match(a2));
     ASSERT_TRUE(v1.match(a3));
-    ASSERT_EQ(v1.value(), "tom");
+    ASSERT_EQ("tom", v1.value());
 }
 
 //?- X=X.
