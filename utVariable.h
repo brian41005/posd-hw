@@ -44,7 +44,6 @@ TEST (Variable, varY_to_varX_and_num1_to_varX) {
     int n = 1;
     Number n1(n);
     ASSERT_TRUE(v1.match(v2));
-    //cout << "out\"" <<v1.value() << "\""<< endl;
     ASSERT_TRUE(v1.match(n1));
     ASSERT_EQ("1", v2.value());
 }
@@ -52,12 +51,12 @@ TEST (Variable, varY_to_varX_and_num1_to_varX) {
 // ?- X=Y, Y=1.
 // X=1
 TEST (Variable, varY_to_varX_and_num1_to_varY) {
-    // Variable v1("X"), v2("Y");
-    // int n = 1;
-    // Number n1(n);
-    // ASSERT_TRUE(v1.match(v2));
-    // ASSERT_TRUE(v2.match(n1));
-    // ASSERT_EQ("1", v1.value());
+    Variable v1("X"), v2("Y");
+    int n = 1;
+    Number n1(n);
+    ASSERT_TRUE(v1.match(v2));
+    ASSERT_TRUE(v2.match(n1));
+    ASSERT_EQ("1", v1.value());
 }
 
 // ?- X=X, X=1.
