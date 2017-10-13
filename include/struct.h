@@ -1,5 +1,5 @@
-#ifndef STRUCTURE_H
-#define STRUCTURE_H
+#ifndef STRUCT_H
+#define STRUCT_H
 
 #include "term.h"
 #include <string>
@@ -7,11 +7,11 @@
 
 using std::vector;
 
-class Structure: public Term{
+class Struct: public Term{
 private:
     vector<Term*> _terms;
 public:
-    Structure(vector<Term*>);
+    Struct(vector<Term*>);
     string symbol() const;
     string value() const;
     bool match(Term&);
