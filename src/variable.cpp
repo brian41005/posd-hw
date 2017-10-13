@@ -1,11 +1,13 @@
 #include "../include/variable.h"
 #include <string> 
 #include <iostream>
+
 Variable::Variable(string symbol): _symbol(symbol){
+    this->_value = NULL;
 }
 
 string Variable::value() const{
-    return this->_value;
+    return this->_value? this->_value->value():"";
 }
 
 string Variable::symbol() const{
@@ -13,7 +15,14 @@ string Variable::symbol() const{
 }
 
 bool Variable::match(Term& term){
-    if (this->_value.empty())
-        this->_value = term.value();
-    return  this->_value == term.value();
+    if (this->_value == NULL){
+        Variable* v = dynamic_cast<Variable*>(&term);
+        if (!(v && this->symbol() == term.symbol()))
+            this->_value = &term;
+    }
+    else
+        this->_value->match(term);
+
+    return this->value() == term.value();
+
 }

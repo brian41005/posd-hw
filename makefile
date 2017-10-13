@@ -1,25 +1,23 @@
 INC_DIR = include
 SRC     = src
 TARGET  = hw3
-objects = main.o atom.o number.o variable.o term.o struct.o
+objects = atom.o number.o variable.o term.o struct.o
 
 all: $(TARGET)
 
-$(TARGET): $(objects)
+$(TARGET): $(objects) main.o
 ifeq (${OS}, Windows_NT) 
-	g++ -o $(TARGET) $(objects) -lgtest
+	g++ -o $(TARGET) $(objects) main.o -lgtest
 else
-	g++ -o $(TARGET) $(objects) -lgtest -lpthread
+	g++ -o $(TARGET) $(objects) main.o -lgtest -lpthread
 endif
+
+
+main.o: $(SRC)/main.cpp utTerm.h utStruct.h utVariable.h
+	g++ -std=gnu++0x -c $(SRC)/main.cpp
 
 $(objects): %.o: $(SRC)/%.cpp
 	g++ -std=gnu++0x -c $<
-
-# main.o: $(SRC)/main.cpp utTerm.h utStruct.h utVariable.h
-# 	g++ -std=gnu++0x -c $(SRC)/main.cpp
-
-# atom.o: $(INC_DIR)/atom.h $(SRC)/atom.cpp
-# 	g++ -std=gnu++0x -c $(SRC)/atom.cpp
 
 
 clean:	

@@ -1,18 +1,16 @@
 #include "../include/number.h"
 
-#include <string> 
-#include <typeinfo>
-
-Number::Number(int n): _n(n) {
-
+Number::Number(int n): _n(to_string(n)){
+}
+Number::Number(double n): _n(to_string(n)){
 }
 
 string Number::value() const {
-    return to_string(this->_n);
+    return this->_n;
 }
 
 string Number::symbol() const {
-    return to_string(this->_n);
+    return this->_n;
 }
 
 bool Number::match(Variable& v){

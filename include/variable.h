@@ -9,7 +9,8 @@ using namespace std;
 class Variable: public Term{
 
  private:
-    string _symbol, _value;
+    string _symbol;
+    Term* _value;
  public:
     Variable(string);
     string value() const;
