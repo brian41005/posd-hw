@@ -1,5 +1,5 @@
 #include "../include/struct.h"
-#include <iostream>
+
 
 Struct::Struct(Atom atom, vector<Term*> terms):_name(atom), _terms(terms){
 }

@@ -1,7 +1,8 @@
 #include "../include/number.h"
-#include <iostream>
+
 Number::Number(int n): _n(to_string(n)){
 }
+
 Number::Number(double n){
     _n = to_string(n);
     int i = _n.find_last_not_of("0");

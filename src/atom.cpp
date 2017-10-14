@@ -1,7 +1,4 @@
 #include "../include/atom.h"
-#include "../include/variable.h"
-#include <string>
-#include <typeinfo>
 
 Atom::Atom(string s) : _symbol(s) {
 

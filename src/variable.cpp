@@ -1,6 +1,5 @@
 #include "../include/variable.h"
-#include <string> 
-#include <iostream>
+
 
 Variable::Variable(string symbol): _symbol(symbol){
     this->_value = NULL;

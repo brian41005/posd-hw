@@ -12,13 +12,11 @@ else
 	g++ -o $(TARGET) $(objects) main.o -lgtest -lpthread
 endif
 
-
-main.o: $(SRC)/main.cpp utTerm.h utStruct.h utVariable.h
-	g++ -std=gnu++0x -c $(SRC)/main.cpp
-
 $(objects): %.o: $(SRC)/%.cpp
 	g++ -std=gnu++0x -c $<
 
+main.o: $(SRC)/main.cpp utTerm.h utStruct.h utVariable.h
+	g++ -std=gnu++0x -c $(SRC)/main.cpp
 
 clean:	
 ifeq (${OS}, Windows_NT) 
