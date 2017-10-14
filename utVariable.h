@@ -31,18 +31,16 @@ TEST (Variable , haveValue){
 // X=2.7182
 TEST(Variable , numE_to_varX){
     Variable v1("X");
-    double n = 2.718211;
-    Number n1(n);
+    Number n1(2.7182);
     ASSERT_TRUE(v1.match(n1));
-    ASSERT_EQ("2.718211", n1.value());
+    ASSERT_EQ("2.718200", n1.value());
 }
 
 // ?- X=Y, X=1.
 // Y=1
 TEST (Variable, varY_to_varX_and_num1_to_varX) {
     Variable v1("X"), v2("Y");
-    int n = 1;
-    Number n1(n);
+    Number n1(1);
     ASSERT_TRUE(v1.match(v2));
     ASSERT_TRUE(v1.match(n1));
     ASSERT_EQ("1", v2.value());
@@ -52,8 +50,7 @@ TEST (Variable, varY_to_varX_and_num1_to_varX) {
 // X=1
 TEST (Variable, varY_to_varX_and_num1_to_varY) {
     Variable v1("X"), v2("Y");
-    int n = 1;
-    Number n1(n);
+    Number n1(1);
     ASSERT_TRUE(v1.match(v2));
     ASSERT_TRUE(v2.match(n1));
     ASSERT_EQ("1", v1.value());
@@ -62,25 +59,47 @@ TEST (Variable, varY_to_varX_and_num1_to_varY) {
 // ?- X=X, X=1.
 // X=1
 TEST (Variable, varX_match_varX_and_num1_to_varX) {
-
+	Variable v1("X");
+	Number n1(1);
+	ASSERT_TRUE(v1.match(v1));
+	ASSERT_TRUE(v1.match(n1));
+	ASSERT_EQ("1", v1.value());
 }
 
 // ?- Y=1, X=Y.
 // X=1
 TEST (Variable, num1_to_varY_and_varX_match_varY) {
-
+	Variable v1("X"), v2("Y");
+	Number n1(1);
+	ASSERT_TRUE(v2.match(n1));
+	ASSERT_TRUE(v1.match(v2));
+	ASSERT_EQ("1", v1.value());
 }
 
 // ?- X=Y, Y=Z, Z=1
 // X=1, Y=1, Z=1
 TEST (Variable, num1_to_varZ_to_varY_to_varX) {
-
+	Variable v1("X"), v2("Y"), v3("Z");
+	Number n1(1);
+	ASSERT_TRUE(v1.match(v2));
+	ASSERT_TRUE(v2.match(v3));
+	ASSERT_TRUE(v3.match(n1));
+	ASSERT_EQ("1", v1.value());
+	ASSERT_EQ("1", v2.value());
+	ASSERT_EQ("1", v3.value());
 }
 
 // ?- X=Y, X=Z, Z=1
 // X=1, Y=1, Z=1
 TEST (Variable, num1_to_varZ_to_varX_and_varY_to_varX) {
-  
+	Variable v1("X"), v2("Y"), v3("Z");
+	Number n1(1);
+	ASSERT_TRUE(v1.match(v2));
+	ASSERT_TRUE(v1.match(v3));
+	ASSERT_TRUE(v3.match(n1));
+	ASSERT_EQ("1", v1.value());
+	ASSERT_EQ("1", v2.value());
+	ASSERT_EQ("1", v3.value());
 }
 
 // Give there is a Struct s contains Variable X
