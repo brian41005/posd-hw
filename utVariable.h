@@ -33,7 +33,7 @@ TEST(Variable , numE_to_varX){
     Variable v1("X");
     Number n1(2.7182);
     ASSERT_TRUE(v1.match(n1));
-    ASSERT_EQ("2.718200", n1.value());
+    ASSERT_EQ("2.7182", n1.value());
 }
 
 // ?- X=Y, X=1.
@@ -108,7 +108,13 @@ TEST (Variable, num1_to_varZ_to_varX_and_varY_to_varX) {
 // Then #symbol() of Y should return "Y"
 // And #value() of Y should return "s(X)"
 TEST (Variable, Struct1) {
-
+    Variable X("X"), Y("Y");
+    vector<Term *> v = {&X};
+    Struct s(Atom("s"), v);
+	ASSERT_EQ("s(X)", s.symbol());
+	ASSERT_TRUE(Y.match(s));
+	ASSERT_EQ("Y", Y.symbol());
+	ASSERT_EQ("s(X)", Y.value());
 }
 
 // Give there is a Struct s contains Variable X
@@ -118,7 +124,15 @@ TEST (Variable, Struct1) {
 // Then #symbol() of Y should return "Y"
 // And #value() of Y should return "s(teddy)"
 TEST (Variable, Struct2) {
-  
+	Variable X("X"), Y("Y");
+    vector<Term *> v = {&X};
+    Struct s(Atom("s"), v);
+	ASSERT_EQ("s(X)", s.symbol());
+	ASSERT_TRUE(Y.match(s));
+	Atom a1("teddy");
+	ASSERT_TRUE(X.match(a1));
+	ASSERT_EQ("Y", Y.symbol());
+	ASSERT_EQ("s(teddy)", Y.value());
 }
 
 #endif

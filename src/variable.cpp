@@ -7,7 +7,7 @@ Variable::Variable(string symbol): _symbol(symbol){
 }
 
 string Variable::value() const{
-    return this->_value? this->_value->value():"";
+    return this->_value? this->_value->value():this->_symbol;
 }
 
 string Variable::symbol() const{

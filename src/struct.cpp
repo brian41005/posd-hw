@@ -21,13 +21,16 @@ string Struct::symbol() const{
 }
 
 string Struct::value() const{
-    return this->symbol();
+    string s = this->name().value() +  "(" + _terms[0]->value();
+    for (auto t = _terms.begin()+1; t != _terms.end(); t++)
+        s += ", " + (*t)->value();
+    return s + ")";
 }
 
 bool Struct::match(Term& term){
     Struct* s = dynamic_cast<Struct*>(&term);
     if (s){
-        if (_name.symbol() != s->name().symbol() || _terms.size() != s->_terms.size())
+        if (!(_name.match(s->_name)) || _terms.size() != s->_terms.size())
             return false;
         else{
             for (int i = 0; i < _terms.size(); i++){
