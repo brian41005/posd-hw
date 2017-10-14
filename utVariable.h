@@ -8,52 +8,52 @@
 #include <iostream>
 
 TEST(Variable, constructor){
-  Variable X("X");
-  ASSERT_EQ("X", X.symbol());
+	Variable X("X");
+	ASSERT_EQ("X", X.symbol());
 }
 
 TEST(Variable , matching){
-  Atom tom("tom");
-  Variable X("X");
-  X.match(tom);
-  ASSERT_EQ( "tom", X.value());
+	Atom tom("tom");
+	Variable X("X");
+	X.match(tom);
+	ASSERT_EQ( "tom", X.value());
 }
 
 TEST (Variable , haveValue){
-  Atom tom ("tom");
-  Atom jerry ("jerry");
-  Variable X("X");
-  ASSERT_TRUE(X.match(tom));
-  ASSERT_FALSE(X.match(jerry));
+	Atom tom ("tom");
+	Atom jerry ("jerry");
+	Variable X("X");
+	ASSERT_TRUE(X.match(tom));
+	ASSERT_FALSE(X.match(jerry));
 }
 
 // ?- X=2.7182.
 // X=2.7182
 TEST(Variable , numE_to_varX){
-    Variable v1("X");
-    Number n1(2.7182);
-    ASSERT_TRUE(v1.match(n1));
-    ASSERT_EQ("2.7182", n1.value());
+	Variable v1("X");
+	Number n1(2.7182);
+	ASSERT_TRUE(v1.match(n1));
+	ASSERT_EQ("2.7182", n1.value());
 }
 
 // ?- X=Y, X=1.
 // Y=1
 TEST (Variable, varY_to_varX_and_num1_to_varX) {
-    Variable v1("X"), v2("Y");
-    Number n1(1);
-    ASSERT_TRUE(v1.match(v2));
-    ASSERT_TRUE(v1.match(n1));
-    ASSERT_EQ("1", v2.value());
+	Variable v1("X"), v2("Y");
+	Number n1(1);
+	ASSERT_TRUE(v1.match(v2));
+	ASSERT_TRUE(v1.match(n1));
+	ASSERT_EQ("1", v2.value());
 }
   
 // ?- X=Y, Y=1.
 // X=1
 TEST (Variable, varY_to_varX_and_num1_to_varY) {
-    Variable v1("X"), v2("Y");
-    Number n1(1);
-    ASSERT_TRUE(v1.match(v2));
-    ASSERT_TRUE(v2.match(n1));
-    ASSERT_EQ("1", v1.value());
+	Variable v1("X"), v2("Y");
+	Number n1(1);
+	ASSERT_TRUE(v1.match(v2));
+	ASSERT_TRUE(v2.match(n1));
+	ASSERT_EQ("1", v1.value());
 }
 
 // ?- X=X, X=1.
@@ -108,9 +108,9 @@ TEST (Variable, num1_to_varZ_to_varX_and_varY_to_varX) {
 // Then #symbol() of Y should return "Y"
 // And #value() of Y should return "s(X)"
 TEST (Variable, Struct1) {
-    Variable X("X"), Y("Y");
-    vector<Term *> v = {&X};
-    Struct s(Atom("s"), v);
+	Variable X("X"), Y("Y");
+	vector<Term *> v = {&X};
+	Struct s(Atom("s"), v);
 	ASSERT_EQ("s(X)", s.symbol());
 	ASSERT_TRUE(Y.match(s));
 	ASSERT_EQ("Y", Y.symbol());
@@ -125,8 +125,8 @@ TEST (Variable, Struct1) {
 // And #value() of Y should return "s(teddy)"
 TEST (Variable, Struct2) {
 	Variable X("X"), Y("Y");
-    vector<Term *> v = {&X};
-    Struct s(Atom("s"), v);
+	vector<Term *> v = {&X};
+	Struct s(Atom("s"), v);
 	ASSERT_EQ("s(X)", s.symbol());
 	ASSERT_TRUE(Y.match(s));
 	Atom a1("teddy");
