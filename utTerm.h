@@ -12,6 +12,11 @@ TEST (Number, ctor) {
     ASSERT_EQ("0", n2.value());
     ASSERT_EQ("1", n3.value());
 
+    Number n4(-1.0), n5(0.1030), n6(3.1234560);
+    ASSERT_EQ("-1.0", n4.value());
+    ASSERT_EQ("0.103", n5.value());
+    ASSERT_EQ("3.123456", n6.value());
+
 
 }
 

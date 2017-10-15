@@ -33,13 +33,11 @@ bool Struct::match(Term& term){
         if (!(_name.match(s->_name)) || _terms.size() != s->_terms.size())
             return false;
         else{
-            for (int i = 0; i < _terms.size(); i++){
+            for (int i = 0; i < _terms.size(); i++)
                 if (!this->_terms[i]->match(*s->_terms[i]))
                     return false;
-            }
             return true;
         }
-       
     }
     else
         return false;
