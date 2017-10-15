@@ -2,7 +2,7 @@ INC_DIR = include
 SRC     = src
 TARGET  = hw3
 OBJECTS = atom.o number.o variable.o term.o struct.o
-UTEST = utTerm.h utStruct.h utVariable.h
+UTEST = *.h
 
 
 
@@ -28,3 +28,7 @@ else
 	rm -f *.o $(TARGET)
 endif
 	
+test:
+	clean
+	make
+	./$(TARGET)
