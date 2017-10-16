@@ -29,6 +29,6 @@ else
 endif
 	
 test:
-	clean
+	make clean
 	make
 	./$(TARGET)
