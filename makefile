@@ -27,7 +27,8 @@ ifeq (${OS}, Windows_NT)
 else
 	rm -f *.o $(TARGET)
 endif
-	
+
+
 test:
 	clean
 	make
