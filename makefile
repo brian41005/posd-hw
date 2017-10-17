@@ -9,11 +9,9 @@ all: $(TARGET)
 
 $(TARGET): $(OBJECTS) main.o
 ifeq (${OS}, Windows_NT) 
-	dir
-	#g++ -o $(TARGET) $(OBJECTS) main.o -lgtest
+	g++ -o $(TARGET) $(OBJECTS) main.o -lgtest
 else
-	ls -la
-	#g++ -o $(TARGET) $(OBJECTS) main.o -lgtest -lpthread
+	g++ -o $(TARGET) $(OBJECTS) main.o -lgtest -lpthread
 endif
 
 $(OBJECTS): %.o: $(SRC)/%.cpp
