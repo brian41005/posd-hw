@@ -22,7 +22,7 @@ endif
 main.o: $(SRC)/main.cpp $(UTEST)
 	g++ -std=gnu++0x -c $(SRC)/main.cpp
 
-atom.o: $(SRC)/atom.cpp $(INC_DIR)/atom.h
+atom.o: $(INC_DIR)/atom.h $(SRC)/atom.cpp
 	g++ -std=gnu++0x -c $(SRC)/atom.cpp
 
 number.o: $(SRC)/number.cpp $(INC_DIR)/number.h
