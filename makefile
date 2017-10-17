@@ -10,9 +10,9 @@ all: $(TARGET)
 
 $(TARGET): $(OBJECTS) main.o
 ifeq (${OS}, Windows_NT) 
-	g++ -o $(TARGET) $(OBJECTS) main.o -lgtest
+	g++ -o $(TARGET) atom.o number.o variable.o term.o struct.o main.o -lgtest
 else
-	g++ -o $(TARGET) $(OBJECTS) main.o -lgtest -lpthread
+	g++ -o $(TARGET) atom.o number.o variable.o term.o struct.o main.o -lgtest -lpthread
 endif
 
 # $(OBJECTS): %.o: $(SRC)/%.cpp
