@@ -1,10 +1,9 @@
+
 INC_DIR = include
 SRC     = src
 TARGET  = hw3
 OBJECTS = atom.o number.o variable.o term.o struct.o
 UTEST = *.h
-
-
 
 all: $(TARGET)
 
@@ -18,8 +17,10 @@ endif
 $(OBJECTS): %.o: $(SRC)/%.cpp
 	g++ -std=gnu++0x -c $<
 
+	
 main.o: $(SRC)/main.cpp $(UTEST)
 	g++ -std=gnu++0x -c $(SRC)/main.cpp
+
 
 clean:	
 ifeq (${OS}, Windows_NT) 
