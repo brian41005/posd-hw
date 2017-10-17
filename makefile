@@ -1,3 +1,4 @@
+ls -li
 INC_DIR = include
 SRC     = src
 TARGET  = hw3
