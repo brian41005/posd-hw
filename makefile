@@ -1,4 +1,4 @@
-ls -li
+
 INC_DIR = include
 SRC     = src
 TARGET  = hw3
@@ -9,8 +9,10 @@ all: $(TARGET)
 
 $(TARGET): $(OBJECTS) main.o
 ifeq (${OS}, Windows_NT) 
+	ls -la
 	g++ -o $(TARGET) $(OBJECTS) main.o -lgtest
 else
+	ls -la
 	g++ -o $(TARGET) $(OBJECTS) main.o -lgtest -lpthread
 endif
 
