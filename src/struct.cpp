@@ -26,15 +26,14 @@ string Struct::value() const {
 
 bool Struct::match(Term& term) {
     if (Struct* s = term.getStruct()) {
-        if (!(_name.match(s->_name)) || _terms.size() != s->_terms.size())
-            return false;
-        else {
+        if (_name.match(s->_name) && _terms.size() == s->_terms.size()){
+            int failTime = 0;
             for (int i = 0; i < _terms.size(); i++)
-                if (!_terms[i]->match(*s->_terms[i])) return false;
-            return true;
+                if (!_terms[i]->match(*s->_terms[i])) failTime++;
+            return failTime == 0; 
         }
-    } else
-        return false;
+    }
+    return false;
 }
 
 Struct* Struct::getStruct() { return this; }
