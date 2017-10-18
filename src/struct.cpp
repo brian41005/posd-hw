@@ -28,8 +28,7 @@ string Struct::value() const{
 }
 
 bool Struct::match(Term& term){
-    Struct* s = dynamic_cast<Struct*>(&term);
-    if (s){
+    if (Struct* s = term.getStruct()){
         if (!(_name.match(s->_name)) || _terms.size() != s->_terms.size())
             return false;
         else{
@@ -41,4 +40,8 @@ bool Struct::match(Term& term){
     }
     else
         return false;
+}
+
+Struct* Struct::getStruct(){
+    return this;
 }
