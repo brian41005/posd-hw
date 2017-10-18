@@ -15,8 +15,7 @@ string Variable::symbol() const{
 
 bool Variable::match(Term& term){
     if (this->_value == NULL){
-        Variable* v = dynamic_cast<Variable*>(&term);
-        if (!(v && this->symbol() == term.symbol()))
+        if (this != &term)
             this->_value = &term;
     }
     else
