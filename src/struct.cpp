@@ -32,6 +32,7 @@ bool Struct::match(Term& term) {
                 if (!_terms[i]->match(*s->_terms[i])) failTime++;
             return failTime == 0; 
         }
+        return false;
     }
     else if (Variable* v = term.getVariable()) {
         return v->match(*this);
