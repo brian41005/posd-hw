@@ -17,7 +17,6 @@ public:
   Number(double);
   string value() const;
   string symbol() const;
-  bool match(Variable &v);
   bool match(Term &);
 };
 #endif

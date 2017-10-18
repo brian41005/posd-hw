@@ -15,7 +15,6 @@ class Atom : public Term {
     Atom(string);
     string symbol() const;
     string value() const;
-    bool match(Variable& v);
     bool match(Term&);
 };
 #endif
