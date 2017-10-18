@@ -2,9 +2,9 @@
 
 Atom::Atom(string s) : _symbol(s) {}
 
-string Atom::symbol() const { return this->_symbol; }
+string Atom::symbol() const { return _symbol; }
 
-string Atom::value() const { return this->_symbol; }
+string Atom::value() const { return _symbol; }
 
 bool Atom::match(Variable& v) { return v.match(*this); }
 

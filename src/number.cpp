@@ -12,9 +12,9 @@ Number::Number(double n) {
     }
 }
 
-string Number::value() const { return this->_n; }
+string Number::value() const { return _n; }
 
-string Number::symbol() const { return this->_n; }
+string Number::symbol() const { return _n; }
 
 bool Number::match(Variable& v) { return v.match(*this); }
 
