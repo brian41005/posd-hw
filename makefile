@@ -1,3 +1,5 @@
+CXX = g++
+CPPFLAGS = -std=gnu++0x
 INC_DIR = include
 SRC     = src
 TARGET  = hw3
@@ -9,17 +11,17 @@ all: $(TARGET)
 
 $(TARGET): $(OBJECTS) main.o
 ifeq (${OS}, Windows_NT) 
-	g++ -o $(TARGET) $(OBJECTS) main.o -lgtest
+	$(CXX) -o $(TARGET) $(OBJECTS) main.o -lgtest
 else
-	g++ -o $(TARGET) $(OBJECTS) main.o -lgtest -lpthread
+	$(CXX) -o $(TARGET) $(OBJECTS) main.o -lgtest -lpthread
 endif
 
 $(OBJECTS): %.o: $(SRC)/%.cpp
-	g++ -std=gnu++0x -c $<
+	$(CXX) $(CPPFLAGS) -c $<
 
 	
 main.o: $(SRC)/main.cpp $(UTEST) $(UTEST_IN_ROOT)
-	g++ -std=gnu++0x -c $(SRC)/main.cpp
+	$(CXX) $(CPPFLAGS) -c $(SRC)/main.cpp
 
 
 clean:	
