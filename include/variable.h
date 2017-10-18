@@ -16,5 +16,6 @@ class Variable : public Term {
     string value() const;
     string symbol() const;
     bool match(Term&);
+    Variable* getVariable() { return this; }
 };
 #endif

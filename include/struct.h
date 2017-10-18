@@ -21,7 +21,7 @@ class Struct : public Term {
     string symbol() const;
     string value() const;
     bool match(Term&);
-    Struct* getStruct();
+    Struct* getStruct(){ return this; }
 };
 
 #endif

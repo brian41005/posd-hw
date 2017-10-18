@@ -2,7 +2,10 @@
 #define TERM_H
 
 #include <string>
+
 class Struct;
+class Variable;
+
 using namespace std;
 
 class Term {
@@ -11,6 +14,7 @@ class Term {
     virtual string value() const = 0;
     virtual bool match(Term&) = 0;
     virtual Struct* getStruct() { return NULL; }
+    virtual Variable* getVariable() { return NULL; }
 };
 
 #endif
