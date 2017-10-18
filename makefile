@@ -1,10 +1,9 @@
-
 INC_DIR = include
 SRC     = src
 TARGET  = hw3
 OBJECTS = atom.o number.o variable.o term.o struct.o
 UTEST = $(utest *.h)
-UTEST_IN_ROOT = $(*.h)
+UTEST_IN_ROOT = $(./ *.h)
 
 all: $(TARGET)
 
@@ -35,3 +34,4 @@ test:
 	make clean
 	make
 	./$(TARGET)
+	make clean

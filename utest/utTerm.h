@@ -7,15 +7,25 @@
 
 //test Number.value()
 TEST (Number, ctor) {
-    Number n1(-1), n2(0), n3(1);
+    Number n1(-1), n2(0), n3(01);
     ASSERT_EQ("-1", n1.value());
     ASSERT_EQ("0", n2.value());
     ASSERT_EQ("1", n3.value());
 
-    Number n4(-1.0), n5(0.1030), n6(3.1234560);
-    ASSERT_EQ("-1.0", n4.value());
+    Number n4(-1.0), n5(0.1030), n6(3.1234560), n7(1.414);
+    ASSERT_EQ("-1", n4.value());
     ASSERT_EQ("0.103", n5.value());
     ASSERT_EQ("3.123456", n6.value());
+    ASSERT_EQ("1.414", n7.value());
+
+    Number n8(1.000000000001), n9(1.000005), n10(3.0100), n11(1.999999), n12(1.0000000000001);
+    ASSERT_EQ("1.000000000001", n8.value());
+    ASSERT_EQ("1.000005", n9.value());
+    ASSERT_EQ("3.01", n10.value());
+    ASSERT_EQ("1.999999", n11.value());
+    ASSERT_EQ("1", n12.value());
+
+
 }
 
 //test Number.symbol()

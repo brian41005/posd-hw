@@ -1,10 +1,10 @@
 #ifndef UTVARIABLE_H
 #define UTVARIABLE_H
 
-#include "../include/variable.h"
-#include "../include/atom.h"
-#include "../include/number.h"
-#include "../include/struct.h"
+#include "include/variable.h"
+#include "include/atom.h"
+#include "include/number.h"
+#include "include/struct.h"
 #include <iostream>
 
 TEST(Variable, constructor){

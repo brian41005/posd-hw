@@ -1,13 +1,14 @@
 #include "../include/number.h"
 
-Number::Number(int n) : _n(to_string(n)) {}
-
 Number::Number(double n) {
-    _n = to_string(n);
+    ostringstream ostream;
+    ostream << fixed << setprecision(12) << n;
+    _n = ostream.str();
+
     int i = _n.find_last_not_of("0");
     if (i != string::npos) {
         _n = _n.substr(0, i + 1);
-        if (_n.back() == '.') _n += "0";
+        if (_n.back() == '.') _n.pop_back();
     }
 }
 
