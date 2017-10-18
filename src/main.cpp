@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
-#include "../utTerm.h"
-#include "../utVariable.h"
-#include "../utStruct.h"
+#include "../utest/utTerm.h"
+#include "../utest/utVariable.h"
+#include "../utest/utStruct.h"
 
 int main(int argc , char **argv)
 {

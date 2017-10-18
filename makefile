@@ -3,7 +3,8 @@ INC_DIR = include
 SRC     = src
 TARGET  = hw3
 OBJECTS = atom.o number.o variable.o term.o struct.o
-UTEST = *.h
+UTEST = $(utest *.h)
+UTEST_IN_ROOT = $(*.h)
 
 all: $(TARGET)
 
@@ -18,7 +19,7 @@ $(OBJECTS): %.o: $(SRC)/%.cpp
 	g++ -std=gnu++0x -c $<
 
 	
-main.o: $(SRC)/main.cpp $(UTEST)
+main.o: $(SRC)/main.cpp $(UTEST) $(UTEST_IN_ROOT)
 	g++ -std=gnu++0x -c $(SRC)/main.cpp
 
 
