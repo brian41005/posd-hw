@@ -8,7 +8,7 @@ using namespace std;
 
 class Variable : public Term {
    private:
-    string _symbol;
+    const string _symbol;
     Term* _value;
 
    public:

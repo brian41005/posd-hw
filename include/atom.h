@@ -9,7 +9,7 @@ using namespace std;
 
 class Atom : public Term {
    private:
-    string _symbol;
+    const string _symbol;
 
    public:
     Atom(string);
