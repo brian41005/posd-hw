@@ -1,11 +1,11 @@
-CXX = g++
+CXX      = g++
 CPPFLAGS = -std=gnu++0x
-INC_DIR = include
-SRC     = src
-TARGET  = hw3
-OBJECTS = atom.o number.o variable.o term.o struct.o
-UTEST = $(utest *.h)
-UTEST_IN_ROOT = $(./ *.h)
+INC_DIR  = include
+SRC      = src
+TARGET   = hw3
+OBJECTS  = atom.o number.o variable.o term.o struct.o
+UTEST    = $(utest *.h) $(./ *.h)
+
 
 all: $(TARGET)
 
@@ -16,11 +16,11 @@ else
 	$(CXX) -o $(TARGET) $(OBJECTS) main.o -lgtest -lpthread
 endif
 
-$(OBJECTS): %.o: $(SRC)/%.cpp
+$(OBJECTS): %.o: $(SRC)/%.cpp $(INC_DIR)/%.h
 	$(CXX) $(CPPFLAGS) -c $<
 
 	
-main.o: $(SRC)/main.cpp $(UTEST) $(UTEST_IN_ROOT)
+main.o: $(SRC)/main.cpp $(UTEST)
 	$(CXX) $(CPPFLAGS) -c $(SRC)/main.cpp
 
 

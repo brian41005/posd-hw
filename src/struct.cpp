@@ -7,17 +7,21 @@ const Atom Struct::name() const { return this->_name; }
 const Term* Struct::args(int i) const { return this->_terms[i]; }
 
 string Struct::symbol() const {
-    string s = this->name().symbol() + "(" + _terms[0]->symbol();
+    ostringstream out;
+    out << this->name().symbol() << "(" << _terms[0]->symbol();
     for (auto t = _terms.begin() + 1; t != _terms.end(); t++)
-        s += ", " + (*t)->symbol();
-    return s + ")";
+        out << ", " << (*t)->symbol();
+    out << ")";
+    return out.str();
 }
 
 string Struct::value() const {
-    string s = this->name().value() + "(" + _terms[0]->value();
+    ostringstream out;
+    out << this->name().value() << "(" << _terms[0]->value();
     for (auto t = _terms.begin() + 1; t != _terms.end(); t++)
-        s += ", " + (*t)->value();
-    return s + ")";
+        out << ", " << (*t)->value();
+    out << ")";
+    return out.str();
 }
 
 bool Struct::match(Term& term) {
