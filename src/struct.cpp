@@ -30,13 +30,11 @@ bool Struct::match(Term& term) {
             int failTime = 0;
             for (int i = 0; i < _terms.size(); i++)
                 if (!_terms[i]->match(*s->_terms[i])) failTime++;
-            return failTime == 0; 
+            return failTime == 0;
         }
         return false;
-    }
-    else if (Variable* v = term.getVariable()) {
+    } else if (Variable* v = term.getVariable()) {
         return v->match(*this);
-    }
-    else
+    } else
         return false;
 }
