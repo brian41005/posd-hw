@@ -102,6 +102,16 @@ TEST(Variable, num1_to_varZ_to_varX_and_varY_to_varX) {
     ASSERT_EQ("1", v3.value());
 }
 
+// X = s(tom).
+TEST(Vaiable, Struct0) {
+    Variable X("X");
+    Atom a1("tom");
+    vector<Term *> v = {&a1};
+    Struct s(Atom("s"), v);
+    ASSERT_TRUE(X.match(s));
+    ASSERT_EQ("s(tom)", s.value());
+}
+
 // Give there is a Struct s contains Variable X
 // And another Variable Y
 // When Y matches Struct s
