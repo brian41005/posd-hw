@@ -169,4 +169,36 @@ TEST(Variable, Struct2) {
     ASSERT_EQ("s(teddy)", Y.value());
 }
 
+// ?- X = s(X).
+// X = s(X)
+TEST(Variable, Struct3) {
+    Variable X("X");
+    Struct s(Atom("s"), vector<Term *>{&X});
+
+    ASSERT_TRUE(X.match(s));
+    
+}
+
+// ?- X = X, X = s(X).
+// X = s(X)
+TEST(Variable, Struct4) {
+    Variable X("X");
+    Struct s(Atom("s"), vector<Term *>{&X});
+
+    ASSERT_TRUE(X.match(X));
+    ASSERT_TRUE(X.match(s));
+    
+}
+
+// ?- X = s(X), X = X.
+// X = s(X)
+TEST(Variable, Struct5) {
+    Variable X("X");
+    Struct s(Atom("s"), vector<Term *>{&X});
+    
+    ASSERT_TRUE(X.match(s));
+    //ASSERT_EQ("s(X)", X.value()); //目前這還會爆，因為還是跟前面幾個TA的側資互相矛盾
+    ASSERT_TRUE(X.match(X));
+    
+}
 #endif

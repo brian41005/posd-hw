@@ -6,6 +6,7 @@
 #include "term.h"
 
 using std::vector;
+using std::runtime_error;
 
 class List : public Term {
    private:
