@@ -174,8 +174,8 @@ TEST(Variable, Struct2) {
 TEST(Variable, Struct3) {
     Variable X("X");
     Struct s(Atom("s"), vector<Term *>{&X});
-
     ASSERT_TRUE(X.match(s));
+    //ASSERT_EQ("s(X)", X.value()); //目前這還會爆，因為還是跟前面幾個TA的測資互相矛盾
     
 }
 
@@ -197,7 +197,6 @@ TEST(Variable, Struct5) {
     Struct s(Atom("s"), vector<Term *>{&X});
     
     ASSERT_TRUE(X.match(s));
-    //ASSERT_EQ("s(X)", X.value()); //目前這還會爆，因為還是跟前面幾個TA的側資互相矛盾
     ASSERT_TRUE(X.match(X));
     
 }
