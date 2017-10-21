@@ -109,7 +109,7 @@ TEST(Variable, X_to_Y_to_1) {
     Number n1(1);
     ASSERT_TRUE(X.match(n1));
     ASSERT_TRUE(X.match(Y));
-    ASSERT_EQ("Y", X.value());
+    ASSERT_EQ("1", X.value());
     ASSERT_EQ("1", Y.value());
 }
 
@@ -120,7 +120,7 @@ TEST(Variable, X_to_1_to_Y) {
     Number n1(1);
     ASSERT_TRUE(X.match(Y));
     ASSERT_TRUE(X.match(n1));
-    ASSERT_EQ("Y", X.value());
+    ASSERT_EQ("1", X.value());
     ASSERT_EQ("1", Y.value());
 }
 

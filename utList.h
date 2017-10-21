@@ -101,6 +101,7 @@ TEST(List, matchToVarOccuredInListShouldFail) {
     List l1(vector<Term*>{&n1, &X, &a1});
     ASSERT_EQ("X", X.value());
     ASSERT_TRUE(X.match(l1));
+    // ASSERT_EQ("[496, X, terence_tao]", X.value());  //這會爆
 }
 
 // ?- [496, X, terence_tao] = [496, X, terence_tao].
