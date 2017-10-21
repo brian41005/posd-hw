@@ -1,22 +1,24 @@
 #ifndef NUMBER_H
 #define NUMBER_H
 
-#include "term.h"
-#include "variable.h"
 #include <iomanip>
 #include <sstream>
 #include <string>
+#include "term.h"
+#include "variable.h"
 
 using namespace std;
 
 class Number : public Term {
-private:
-  string _n;
+   private:
+    string _n;
 
-public:
-  Number(double);
-  string value() const;
-  string symbol() const;
-  bool match(Term &);
+   public:
+    Number(double);
+
+   public:
+    string value() const;
+    string symbol() const;
+    bool match(Term &);
 };
 #endif

@@ -8,8 +8,12 @@ string Variable::symbol() const { return _symbol; }
 
 bool Variable::match(Term& term) {
     if (_value == NULL) {
-        if (this != &term) _value = &term;
+        if (Variable* v = term.getVariable()) {
+            if (v->symbol() != symbol()) _value = &term;
+
+        } else
+            _value = &term;
+        return true;
     } else
-        _value->match(term);
-    return this->value() == term.value();
+        return _value->match(term);
 }

@@ -102,6 +102,28 @@ TEST(Variable, num1_to_varZ_to_varX_and_varY_to_varX) {
     ASSERT_EQ("1", v3.value());
 }
 
+// ?- X = 1, X = Y.
+// X = Y, Y = 1
+TEST(Variable, X_to_Y_to_1) {
+    Variable X("X"), Y("Y");
+    Number n1(1);
+    ASSERT_TRUE(X.match(n1));
+    ASSERT_TRUE(X.match(Y));
+    ASSERT_EQ("1", X.value());
+    ASSERT_EQ("1", Y.value());
+}
+
+// ?- X = Y, X = 1.
+// X = Y, Y = 1
+TEST(Variable, X_to_1_to_Y) {
+    Variable X("X"), Y("Y");
+    Number n1(1);
+    ASSERT_TRUE(X.match(Y));
+    ASSERT_TRUE(X.match(n1));
+    ASSERT_EQ("1", X.value());
+    ASSERT_EQ("1", Y.value());
+}
+
 // s(tom) = X.
 TEST(Vaiable, Struct0) {
     Variable X("X");

@@ -8,8 +8,10 @@ const Term* Struct::args(int i) const { return _terms[i]; }
 
 string Struct::symbol() const {
     ostringstream out;
-    out << _name.symbol() << "(" << _terms[0]->symbol();
-    for (auto t = _terms.begin() + 1; t != _terms.end(); t++)
+    out << _name.symbol() << "(";
+    if (_terms.size() > 0)
+        out << _terms[0]->symbol();
+    for (auto t = _terms.begin() + 1; t < _terms.end(); t++)
         out << ", " << (*t)->symbol();
     out << ")";
     return out.str();
@@ -17,8 +19,10 @@ string Struct::symbol() const {
 
 string Struct::value() const {
     ostringstream out;
-    out << _name.value() << "(" << _terms[0]->value();
-    for (auto t = _terms.begin() + 1; t != _terms.end(); t++)
+    out << _name.value() << "(";
+    if (_terms.size() > 0)
+        out << _terms[0]->value();
+    for (auto t = _terms.begin() + 1; t < _terms.end(); t++)
         out << ", " << (*t)->value();
     out << ")";
     return out.str();

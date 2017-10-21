@@ -1,9 +1,9 @@
 #ifndef STRUCT_H
 #define STRUCT_H
 
+#include <sstream>
 #include <string>
 #include <vector>
-#include <sstream>
 #include "atom.h"
 #include "term.h"
 
@@ -18,10 +18,12 @@ class Struct : public Term {
     Struct(Atom, vector<Term*>);
     const Atom name() const;
     const Term* args(int) const;
+    Struct* getStruct() { return this; }
+
+   public:
     string symbol() const;
     string value() const;
     bool match(Term&);
-    Struct* getStruct(){ return this; }
 };
 
 #endif
