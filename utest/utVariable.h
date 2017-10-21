@@ -2,10 +2,10 @@
 #define UTVARIABLE_H
 
 #include <iostream>
-#include "include/atom.h"
-#include "include/number.h"
-#include "include/struct.h"
-#include "include/variable.h"
+#include "../include/atom.h"
+#include "../include/number.h"
+#include "../include/struct.h"
+#include "../include/variable.h"
 
 TEST(Variable, constructor) {
     Variable X("X");

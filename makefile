@@ -2,8 +2,8 @@ CXX      = g++
 CPPFLAGS = -std=gnu++0x
 INC_DIR  = include
 SRC      = src
-TARGET   = hw3
-OBJECTS  = atom.o number.o variable.o term.o struct.o
+TARGET   = hw4
+OBJECTS  = atom.o number.o variable.o term.o struct.o list.o
 UTEST    = $(utest *.h) $(./ *.h)
 
 

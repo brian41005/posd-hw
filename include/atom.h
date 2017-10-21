@@ -13,6 +13,8 @@ class Atom : public Term {
 
    public:
     Atom(string);
+
+   public:
     string symbol() const;
     string value() const;
     bool match(Term&);
