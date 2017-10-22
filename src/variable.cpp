@@ -6,23 +6,22 @@ string Variable::value(vector<Term*> record) {
     string result;
     record.push_back(this);
 
-    if (_value){
-        vector<Term*>::iterator index = find(record.begin(), record.end(), this);
-        if (index != record.end() && index != record.end()-1 && record.size() > 1){
-            if (record[record.size()-2]->getVariable()) {
-                result = record[record.size()-2]->symbol(); 
+    if (_value) {
+        vector<Term*>::iterator index =
+            find(record.begin(), record.end(), this);
+        if (index != record.end() && index != record.end() - 1 &&
+            record.size() > 1) {
+            f(record[record.size() - 2]->getVariable()) {
+                result = record[record.size() - 2]->symbol();
             }
-            else
-                result = _symbol;
-        }else {
+            else result = _symbol;
+        } else {
             result = _value->value(record);
         }
-    }
-    else
+    } else
         result = _symbol;
     return result;
 }
-
 
 string Variable::symbol() const { return _symbol; }
 
@@ -34,10 +33,8 @@ bool Variable::match(Term& term) {
         } else
             _value = &term;
         return true;
-    } 
-    else{
+    } else {
         if (term.symbol() == _value->symbol() && &term == _value) return true;
         return _value->match(term);
     }
-        
 }
