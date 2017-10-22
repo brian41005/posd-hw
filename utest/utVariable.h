@@ -251,9 +251,9 @@ TEST(Variable, Struct8) {
     ASSERT_TRUE(Y.match(Z));
     ASSERT_TRUE(Z.match(X));
     ASSERT_TRUE(Q.match(s));
-    ASSERT_EQ("Y", X.value());
-    ASSERT_EQ("Z", Y.value());
-    //ASSERT_EQ("s(Z)", Q.value());//還是GG
-    ASSERT_EQ("s(Y)", Q.value());
+    ASSERT_EQ("Z", X.value());
+    //ASSERT_EQ("Z", Y.value());
+    ASSERT_EQ("s(Z)", Q.value());
+
 }
 #endif

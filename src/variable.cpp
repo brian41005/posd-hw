@@ -9,9 +9,8 @@ string Variable::value(vector<Term*> record) {
     if (_value){
         vector<Term*>::iterator index = find(record.begin(), record.end(), this);
         if (index != record.end() && index != record.end()-1 && record.size() > 1){
-            if (!record[record.size()-2]->getList() && !record[record.size()-2]->getStruct()) {
-                if (_value->getVariable())  result = _value->symbol();
-                else result = record[record.size()-2]->symbol();
+            if (record[record.size()-2]->getVariable()) {
+                result = record[record.size()-2]->symbol(); 
             }
             else
                 result = _symbol;
