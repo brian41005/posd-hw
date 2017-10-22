@@ -17,7 +17,7 @@ class Number : public Term {
     Number(double);
 
    public:
-    string value() const;
+    string value(vector<Term*> record = vector<Term*>{});
     string symbol() const;
     bool match(Term &);
 };

@@ -16,7 +16,7 @@ class Atom : public Term {
 
    public:
     string symbol() const;
-    string value() const;
+    string value(vector<Term*> record = vector<Term*>{});
     bool match(Term&);
 };
 #endif

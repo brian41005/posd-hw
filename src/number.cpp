@@ -12,7 +12,7 @@ Number::Number(double n) {
     }
 }
 
-string Number::value() const { return _n; }
+string Number::value(vector<Term*> record){ return _n; }
 
 string Number::symbol() const { return _n; }
 

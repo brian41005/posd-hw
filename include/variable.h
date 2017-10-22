@@ -2,6 +2,8 @@
 #define VARIABLE_H
 
 #include <string>
+#include <set>
+#include <vector>
 #include "term.h"
 
 using namespace std;
@@ -15,7 +17,7 @@ class Variable : public Term {
     Variable(string);
 
    public:
-    string value() const;
+    string value(vector<Term*> record = vector<Term*>{});
     string symbol() const;
     bool match(Term&);
     Variable* getVariable() { return this; }

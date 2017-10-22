@@ -2,18 +2,28 @@
 
 Variable::Variable(string symbol) : _symbol(symbol) { _value = NULL; }
 
-string Variable::value() const { return _value ? _value->value() : symbol(); }
-// string Variable::value() const {
-//     if (_value != NULL){
-//         if (_value->getVariable())
-//             return _value->symbol();
-//         else
-//             return _value->value();
-//     }
-//     else
-//         return symbol();
-    
-// }
+string Variable::value(vector<Term*> record) {
+    string result;
+    record.push_back(this);
+
+    if (_value){
+        set<Term*> tempSet( record.begin(), record.end());
+        if (((record.front() == record.back()) || (tempSet.size() !=record.size())) && record.size() > 1)
+            if (!record[record.size()-2]->getList() && !record[record.size()-2]->getStruct()) {
+                if (_value->getVariable())  result = _value->symbol();
+                else result = record[record.size()-2]->symbol();
+            }
+            else
+                result = _symbol;
+        else {
+            result = _value->value(record);
+        }
+    }
+    else
+        result = _symbol;
+    return result;
+}
+
 
 string Variable::symbol() const { return _symbol; }
 

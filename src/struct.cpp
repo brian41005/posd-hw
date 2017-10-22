@@ -17,13 +17,15 @@ string Struct::symbol() const {
     return out.str();
 }
 
-string Struct::value() const {
+string Struct::value(vector<Term*> record){
+    record.push_back(this);
+
     ostringstream out;
     out << _name.value() << "(";
     if (!_terms.empty())
-        out << _terms[0]->value();
+        out << _terms[0]->value(record);
     for (auto t = _terms.begin() + 1; t < _terms.end(); t++)
-        out << ", " << (*t)->value();
+        out << ", " << (*t)->value(record);
     out << ")";
     return out.str();
 }
