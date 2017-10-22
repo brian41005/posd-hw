@@ -93,15 +93,15 @@ TEST(List, matchToVarShouldSucceed) {
 }
 
 // ?- X = [496, X, terence_tao].
-// false.QQ
+// false
 TEST(List, matchToVarOccuredInListShouldFail) {
     Atom a1("terence_tao");
     Number n1(496);
     Variable X("X");
     List l1(vector<Term*>{&n1, &X, &a1});
     ASSERT_EQ("X", X.value());
-    ASSERT_TRUE(X.match(l1));
-    // ASSERT_EQ("[496, X, terence_tao]", X.value());  //這會爆
+    ASSERT_FALSE(X.match(l1));
+
 }
 
 // ?- [496, X, terence_tao] = [496, X, terence_tao].
