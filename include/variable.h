@@ -2,6 +2,7 @@
 #define VARIABLE_H
 
 #include <string>
+#include <algorithm>
 #include <set>
 #include <vector>
 #include "term.h"

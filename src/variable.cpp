@@ -7,15 +7,15 @@ string Variable::value(vector<Term*> record) {
     record.push_back(this);
 
     if (_value){
-        set<Term*> tempSet( record.begin(), record.end());
-        if (((record.front() == record.back()) || (tempSet.size() !=record.size())) && record.size() > 1)
+        vector<Term*>::iterator index = find(record.begin(), record.end(), this);
+        if (index != record.end() && index != record.end()-1 && record.size() > 1){
             if (!record[record.size()-2]->getList() && !record[record.size()-2]->getStruct()) {
                 if (_value->getVariable())  result = _value->symbol();
                 else result = record[record.size()-2]->symbol();
             }
             else
                 result = _symbol;
-        else {
+        }else {
             result = _value->value(record);
         }
     }
