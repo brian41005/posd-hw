@@ -3,17 +3,6 @@
 Variable::Variable(string symbol) : _symbol(symbol) { _value = NULL; }
 
 string Variable::value() const { return _value ? _value->value() : symbol(); }
-// string Variable::value() const {
-//     if (_value != NULL){
-//         if (_value->getVariable())
-//             return _value->symbol();
-//         else
-//             return _value->value();
-//     }
-//     else
-//         return symbol();
-    
-// }
 
 string Variable::symbol() const { return _symbol; }
 
