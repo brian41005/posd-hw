@@ -9,31 +9,27 @@ const Term* Struct::args(int i) const { return _terms[i]; }
 string Struct::symbol() const {
     ostringstream out;
     out << _name.symbol() << "(";
-    if (!_terms.empty())
-        out << _terms[0]->symbol();
+    if (!_terms.empty()) out << _terms[0]->symbol();
     for (auto t = _terms.begin() + 1; t < _terms.end(); t++)
         out << ", " << (*t)->symbol();
     out << ")";
     return out.str();
 }
 
-string Struct::value(vector<Term*> record){
+string Struct::value(vector<Term*> record) {
     record.push_back(this);
     ostringstream out;
     out << _name.value() << "(";
-    if (!_terms.empty())
-        out << _terms[0]->value(record);
+    if (!_terms.empty()) out << _terms[0]->value(record);
     for (auto t = _terms.begin() + 1; t < _terms.end(); t++)
         out << ", " << (*t)->value(record);
     out << ")";
     return out.str();
 }
 
-bool Struct::match(Variable& v){
-    return v.match(*this);
-}
+bool Struct::match(Variable& v) { return v.match(*this); }
 
-bool Struct::match(Struct& s){
+bool Struct::match(Struct& s) {
     if (_name.match(s._name) && _terms.size() == s._terms.size()) {
         int failTime = 0;
         for (int i = 0; i < _terms.size(); i++)
@@ -43,6 +39,4 @@ bool Struct::match(Struct& s){
     return false;
 }
 
-bool Struct::match(Term& term) {
-    return false;
-}
+bool Struct::match(Term& term) { return false; }

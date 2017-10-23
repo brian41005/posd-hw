@@ -12,10 +12,10 @@ Number::Number(double n) {
     }
 }
 
-string Number::value(vector<Term*> record){ return _n; }
+string Number::value(vector<Term*> record) { return _n; }
 
 string Number::symbol() const { return _n; }
 
-bool Number::match(Variable& v){ return v.match(*this); }
+bool Number::match(Variable& v) { return v.match(*this); }
 
 bool Number::match(Term& term) { return this->symbol() == term.symbol(); }

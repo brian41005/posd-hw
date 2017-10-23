@@ -15,12 +15,12 @@ class Number : public Term {
 
    public:
     Number(double);
-    bool match(Variable&);
-    
-   //Term's interface
+    bool match(Variable &);
+
+    // Term's interface
    public:
     string symbol() const;
-    string value(vector<Term*> record = vector<Term*>{});
+    string value(vector<Term *> record = vector<Term *>{});
     bool match(Term &);
 };
 #endif

@@ -92,9 +92,9 @@ TEST(Struct, var_match_atom) {
     Struct s(Atom("s"), vector<Term *>{&X});
     ASSERT_EQ("s(X)", s.value());
     Atom a1("tom");
-    //ASSERT_TRUE(X.match(a1));
-    //ASSERT_EQ("s(X)", s.symbol());
-    //ASSERT_EQ("s(tom)", s.value());
+    // ASSERT_TRUE(X.match(a1));
+    // ASSERT_EQ("s(X)", s.symbol());
+    // ASSERT_EQ("s(tom)", s.value());
 }
 
 // Given there are Struct s1 and Struct s2

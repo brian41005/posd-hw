@@ -1,9 +1,9 @@
 #ifndef VARIABLE_H
 #define VARIABLE_H
 
-#include <string>
 #include <algorithm>
 #include <set>
+#include <string>
 #include <vector>
 #include "term.h"
 
@@ -16,8 +16,8 @@ class Variable : public Term {
 
    public:
     Variable(string);
-    
-    //Term's interface
+
+    // Term's interface
    public:
     string symbol() const;
     string value(vector<Term*> record = vector<Term*>{});

@@ -20,8 +20,8 @@ class Struct : public Term {
     const Term* args(int) const;
     bool match(Variable&);
     bool match(Struct&);
-   
-   //Term's interface 
+
+    // Term's interface
    public:
     string symbol() const;
     string value(vector<Term*> record = vector<Term*>{});

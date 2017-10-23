@@ -110,14 +110,13 @@ TEST(Variable, num1_to_varZ_to_varX_and_varY_to_varX) {
 // Z = Q
 TEST(Variable, X_to_Q_and_Y_to_W_and_Z_to_X) {
     Variable X("X"), Y("Y"), Z("Z"), Q("Q"), W("W");
-    
+
     ASSERT_TRUE(X.match(Q));
     ASSERT_TRUE(Y.match(W));
     ASSERT_TRUE(Z.match(X));
     ASSERT_EQ("Q", X.value());
     ASSERT_EQ("W", Y.value());
     ASSERT_EQ("Q", Z.value());
-
 }
 // s(tom) = X.
 TEST(Vaiable, Struct0) {
@@ -168,7 +167,6 @@ TEST(Variable, Struct3) {
     Struct s(Atom("s"), vector<Term *>{&X});
     ASSERT_TRUE(X.match(s));
     ASSERT_EQ("s(X)", X.value());
-    
 }
 
 // ?- X = X, X = s(X).
@@ -180,7 +178,6 @@ TEST(Variable, Struct4) {
     ASSERT_TRUE(X.match(X));
     ASSERT_TRUE(X.match(s));
     ASSERT_EQ("s(X)", X.value());
-    
 }
 
 // ?- X = s(X), X = X.
@@ -188,12 +185,10 @@ TEST(Variable, Struct4) {
 TEST(Variable, Struct5) {
     Variable X("X");
     Struct s(Atom("s"), vector<Term *>{&X});
-    
+
     ASSERT_TRUE(X.match(s));
     ASSERT_EQ("s(X)", X.value());
     ASSERT_TRUE(X.match(X));
-    
-    
 }
 // ?- X=Y, Y=Z, Z=1, Q=s(X).
 // Q = s(1),
@@ -202,7 +197,7 @@ TEST(Variable, Struct6) {
     Variable X("X"), Y("Y"), Z("Z"), Q("Q");
     Number n1(1);
     Struct s(Atom("s"), vector<Term *>{&n1});
-    
+
     ASSERT_TRUE(X.match(Y));
     ASSERT_TRUE(Y.match(Z));
     ASSERT_TRUE(Z.match(n1));
@@ -225,10 +220,7 @@ TEST(Variable, Struct7) {
     ASSERT_EQ("Y", X.value());
     ASSERT_EQ("X", Y.value());
     ASSERT_EQ("s(Y)", Z.value());
-
 }
-
-
 
 // ?- X=Y, Y=Z, Z=X, Q=s(X).
 // Q = s(Z),
@@ -236,7 +228,7 @@ TEST(Variable, Struct7) {
 TEST(Variable, Struct8) {
     Variable X("X"), Y("Y"), Z("Z"), Q("Q");
     Struct s(Atom("s"), vector<Term *>{&X});
-    
+
     ASSERT_TRUE(X.match(Y));
     ASSERT_TRUE(Y.match(Z));
     ASSERT_TRUE(Z.match(X));
@@ -244,7 +236,6 @@ TEST(Variable, Struct8) {
     ASSERT_EQ("Y", Z.value());
     ASSERT_EQ("X", Y.value());
     ASSERT_EQ("s(Z)", Q.value());
-
 }
 
 #endif
