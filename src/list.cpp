@@ -6,18 +6,13 @@ List::List() : _elements() {}
 List::List(const vector<Term *> &elements) : _elements(elements) {}
 
 Term *List::head() const {
-    if (_elements.empty())
-        throw string("Accessing head in an empty list");
-    return _elements.front(); 
+    if (_elements.empty()) throw string("Accessing head in an empty list");
+    return _elements.front();
 }
 
 List *List::tail() const {
-    if (_elements.empty())
-        throw string("Accessing tail in an empty list");
-    
-    vector<Term *>::const_iterator first = _elements.begin() + 1;
-    vector<Term *>::const_iterator last = _elements.end();
-    return new List(vector<Term *>(first, last));
+    if (_elements.empty()) throw string("Accessing tail in an empty list");
+    return new List(vector<Term *>(_elements.begin() + 1, _elements.end()));
 }
 
 string List::symbol() const {
@@ -30,7 +25,7 @@ string List::symbol() const {
     return out.str();
 }
 
-string List::value(vector<Term*> record){
+string List::value(vector<Term *> record) {
     record.push_back(this);
 
     ostringstream out;
@@ -44,7 +39,7 @@ string List::value(vector<Term*> record){
 
 bool List::match(Term &term) {
     if (List *s = term.getList()) {
-        if (s->_elements.size() == _elements.size()){
+        if (s->_elements.size() == _elements.size()) {
             int failTime = 0;
             for (int i = 0; i < _elements.size(); i++)
                 failTime += (!_elements[i]->match(*s->_elements[i]));
