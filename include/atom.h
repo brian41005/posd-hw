@@ -13,7 +13,9 @@ class Atom : public Term {
 
    public:
     Atom(string);
+    bool match(Variable&);
 
+   //Term's interface
    public:
     string symbol() const;
     string value(vector<Term*> record = vector<Term*>{});

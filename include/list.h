@@ -14,10 +14,11 @@ class List : public Term {
 
    public:
     List();
-    List(const vector<Term *> &);
+    List(vector<Term *>);
     Term *head() const;
     List *tail() const;
-
+   
+   //Term's interfaces
    public:
     string symbol() const;
     string value(vector<Term*> record = vector<Term*>{});

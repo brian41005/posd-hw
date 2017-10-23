@@ -1,18 +1,15 @@
 #include "../include/variable.h"
-
+#include <iostream>
 Variable::Variable(string symbol) : _symbol(symbol) { _value = NULL; }
 
 string Variable::value(vector<Term*> record) {
-    string result;
     record.push_back(this);
-
+    string result;
     if (_value) {
-        vector<Term*>::iterator index =
-            find(record.begin(), record.end(), this);
-        if (index != record.end() && index != record.end() - 1 &&
-            record.size() > 1) {
+        vector<Term*>::iterator index = find(record.begin(), record.end(), this);
+        if (index != record.end() && index != record.end() - 1 && record.size() > 1) {
             if (record[record.size() - 2]->getVariable())
-                result = record[record.size() - 2]->symbol();
+                result = record.size() > 2 ? record[record.size() - 2]->symbol():_value->symbol();
             else
                 result = record[distance(record.begin(), index)]->symbol();
 
@@ -26,14 +23,13 @@ string Variable::value(vector<Term*> record) {
 string Variable::symbol() const { return _symbol; }
 
 bool Variable::match(Term& term) {
+    if (term.getVariable() && term.symbol() == symbol() && &term == this)
+        return true;
+
     if (_value) {
-        if (term.symbol() == _value->symbol() && &term == _value) return true;
-        return _value->match(term);
+        return (term.symbol() == _value->symbol() && &term == _value)? true:_value->match(term);
     } else {
-        if (Variable* v = term.getVariable()) {
-            if (v->symbol() != symbol() && &term != this) _value = &term;
-        } else
-            _value = &term;
+        _value = &term;
         return true;
     }
 }

@@ -116,6 +116,17 @@ TEST(List, matchToVarOccuredInListShouldSucceed) {
 // ?- X = [X], X = 1.
 //  false.
 TEST(List, specialCase1) {
+    Variable X("X"); Number n1(1);
+    List l1(vector<Term *>{&X});
+    ASSERT_EQ("X", X.value());
+    ASSERT_TRUE(X.match(l1));
+    ASSERT_FALSE(X.match(n1));
+}
+
+
+// ?- X = [X], X = 1.
+//  false.
+TEST(List, specialCase2) {
     Variable X("X");
     List l1(vector<Term *>{&X});
     Number n1(1);

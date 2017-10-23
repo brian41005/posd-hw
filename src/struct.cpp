@@ -19,7 +19,6 @@ string Struct::symbol() const {
 
 string Struct::value(vector<Term*> record){
     record.push_back(this);
-
     ostringstream out;
     out << _name.value() << "(";
     if (!_terms.empty())
@@ -30,17 +29,20 @@ string Struct::value(vector<Term*> record){
     return out.str();
 }
 
+bool Struct::match(Variable& v){
+    return v.match(*this);
+}
+
+bool Struct::match(Struct& s){
+    if (_name.match(s._name) && _terms.size() == s._terms.size()) {
+        int failTime = 0;
+        for (int i = 0; i < _terms.size(); i++)
+            failTime += (!_terms[i]->match(*s._terms[i]));
+        return failTime == 0;
+    }
+    return false;
+}
+
 bool Struct::match(Term& term) {
-    if (Struct* s = term.getStruct()) {
-        if (_name.match(s->_name) && _terms.size() == s->_terms.size()) {
-            int failTime = 0;
-            for (int i = 0; i < _terms.size(); i++)
-                failTime += (!_terms[i]->match(*s->_terms[i]));
-            return failTime == 0;
-        }
-        return false;
-    } else if (Variable* v = term.getVariable()) {
-        return v->match(*this);
-    } else
-        return false;
+    return false;
 }

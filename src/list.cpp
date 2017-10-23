@@ -3,7 +3,7 @@
 
 List::List() : _elements() {}
 
-List::List(const vector<Term *> &elements) : _elements(elements) {}
+List::List(vector<Term *> elements) : _elements(elements) {}
 
 Term *List::head() const {
     if (_elements.empty()) throw string("Accessing head in an empty list");
@@ -27,7 +27,6 @@ string List::symbol() const {
 
 string List::value(vector<Term *> record) {
     record.push_back(this);
-
     ostringstream out;
     out << "[";
     if (!_elements.empty()) out << _elements[0]->value(record);
