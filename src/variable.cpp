@@ -14,7 +14,7 @@ string Variable::value(vector<Term*> record) {
             if (record[record.size() - 2]->getVariable())
                 result = record[record.size() - 2]->symbol();
             else
-                result = _symbol;
+                result = record[distance(record.begin(), index)]->symbol();
 
         } else
             result = _value->value(record);
