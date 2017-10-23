@@ -99,7 +99,7 @@ TEST(List, matchToVarOccuredInListShouldFail) {
     Variable X("X");
     List l1(vector<Term*>{&n1, &X, &a1});
     ASSERT_EQ("X", X.value());
-    ASSERT_FALSE(X.match(l1));
+    ASSERT_TRUE(X.match(l1));
 
 }
 
