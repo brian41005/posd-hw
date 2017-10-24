@@ -27,9 +27,8 @@ string Struct::value(vector<Term*> record) {
     return out.str();
 }
 
-bool Struct::match(Variable& v, vector<Variable*> record) {
-    return v.match(*this);
-}
+bool Struct::match(Variable& v, vector<Variable*> record) { return v.match(*this); }
+bool Struct::match(Term& term, vector<Variable*> record) { return false; }
 
 bool Struct::match(Struct& s, vector<Variable*> record) {
     if (_name.match(s._name) && _terms.size() == s._terms.size()) {
@@ -40,5 +39,3 @@ bool Struct::match(Struct& s, vector<Variable*> record) {
     }
     return false;
 }
-
-bool Struct::match(Term& term, vector<Variable*> record) { return false; }

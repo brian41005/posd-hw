@@ -37,6 +37,7 @@ string List::value(vector<Term *> record) {
 }
 
 bool List::match(Variable& variable, vector<Variable *> record) { return variable.match(*this); }
+bool List::match(Term &term, vector<Variable *> record) { return false; }
 
 bool List::match(List& list, vector<Variable *> record) {
     if (list._elements.size() == _elements.size()) {
@@ -48,4 +49,3 @@ bool List::match(List& list, vector<Variable *> record) {
     return false;
 }
 
-bool List::match(Term &term, vector<Variable *> record) { return false; }
