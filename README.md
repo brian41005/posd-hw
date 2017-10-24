@@ -1,8 +1,5 @@
 ### Pattern Oriented Software Design
 #### Fall, 2017
-#### 103590450 馬茂源 四資四
-#### Dept of Computer Science and Information Engineering
-
 
 ### Introduction
 We will build a Prolog term matching program in this course. Functionally, the program is simple but non-trivial. Thus, we will have plenty of opportunities to encounter **design problems**. After analyzing the design problems, we will make use of appropriate design patterns to solve them. The patterns include _Composite_, _Interpreter_, _Builder_, _Iterator_, _Proxy_, _Visitor_, and so on. Along the way we will also pick up some useful domain knowledge of computing: symbolic matching, lexical analysis, and parsing.
@@ -80,3 +77,54 @@ Let _S_ and _T_ be two terms.
   * all their corresponding components match.
 
   The result of the instantiation is determined by the matching of the components.
+
+### List
+
+```Prolog
+?- X = [1, 2, 3].
+X = [1, 2, 3].
+
+?- X = .(1,[]).
+X = [1]
+
+?- [1, 2] = .(1, .(2, [])).
+true.
+
+?- [1,2,3] = [H|L].
+H = 1,
+L = [2, 3]
+
+?- [1,2,3] = .(H, L).
+H = 1,
+L = [2, 3]
+```
+
+### Lexical analysis and parsing
+
+lexical analyzer, or token scanner
+(Dragon book, p71, Fig 2.37)
+
+| lexeme                   | token        | attribute value          |
+| :----------------------- | :----------  | :----------------------- |
+| sequence of digits       | Number       | numeric value of sequence|
+| small letter followed by alphanumeric|    Atom            |      index into symbol                    |
+| cap letter or '_' followed   by alphanumeric  | Var          | index into symbol        |
+
+term -> atom | number | var | struct | list
+
+struct -> atom '(' terms ')'
+
+list -> '[' terms ']'
+
+terms -> term, terms | e
+
+atom -> Atom
+
+number -> Number
+
+var -> Var
+
+rewritten to
+
+terms -> term rest| e
+rest -> ',' term rest | e
