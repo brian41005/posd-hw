@@ -289,7 +289,7 @@ TEST(Variable, Struct5) {
 }
 // ?- X=Y, Y=Z, Z=1, Q=s(X).
 // Q = s(1),
-// X = Y, Y = Z, Z = 1
+// X = 1, Y = 1, Z = 1
 TEST(Variable, Struct6) {
     Variable X("X"), Y("Y"), Z("Z"), Q("Q");
     Number n1(1);
@@ -307,7 +307,7 @@ TEST(Variable, Struct6) {
 
 // -? X=Y, Y=X, Z=s(X).
 // Z = s(Y),
-// X = Y
+// X = Y, Y = X
 TEST(Variable, Struct7) {
     Variable X("X"), Y("Y"), Z("Z");
     Struct s(Atom("s"), vector<Term *>{&X});
@@ -321,7 +321,7 @@ TEST(Variable, Struct7) {
 
 // ?- X=Y, Y=Z, Z=X, Q=s(X).
 // Q = s(Z),
-// X = Y, Y = Z
+// X = Z, Y = X
 TEST(Variable, Struct8) {
     Variable X("X"), Y("Y"), Z("Z"), Q("Q");
     Struct s(Atom("s"), vector<Term *>{&X});
