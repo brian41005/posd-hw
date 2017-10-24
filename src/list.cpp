@@ -36,17 +36,16 @@ string List::value(vector<Term *> record) {
     return out.str();
 }
 
-bool List::match(Term &term, vector<Variable *> record) {
-    if (List *s = term.getList()) {
-        if (s->_elements.size() == _elements.size()) {
-            int failTime = 0;
-            for (int i = 0; i < _elements.size(); i++)
-                failTime += (!_elements[i]->match(*s->_elements[i]));
-            return failTime == 0;
-        }
-        return false;
-    } else if (Variable *v = term.getVariable()) {
-        return v->match(*this);
-    } else
-        return false;
+bool List::match(Variable& variable, vector<Variable *> record) { return variable.match(*this); }
+
+bool List::match(List& list, vector<Variable *> record) {
+    if (list._elements.size() == _elements.size()) {
+        int failTime = 0;
+        for (int i = 0; i < _elements.size(); i++)
+            failTime += (!_elements[i]->match(*list._elements[i]));
+        return failTime == 0;
+    }
+    return false;
 }
+
+bool List::match(Term &term, vector<Variable *> record) { return false; }

@@ -157,7 +157,7 @@ TEST(Variable, X_to_Y_and_Y_to_Z_and_Z_to_Z_and_X_to_1) {
     ASSERT_EQ("1", Z.value());
 }
 
-// X=Y,Y=Z,Z=X, Y=1.
+// X=Y, Y=Z, Z=X, Y=1.
 // X=1,Y=1, Z=1.
 TEST(Variable, X_to_Y_and_Y_to_Z_and_Z_to_Z_and_Y_to_1) {
     Variable X("X"), Y("Y"), Z("Z");
@@ -171,7 +171,7 @@ TEST(Variable, X_to_Y_and_Y_to_Z_and_Z_to_Z_and_Y_to_1) {
     ASSERT_EQ("1", Z.value());
 }
 
-// X=Y,Y=Z,Z=X, Z=1.
+// X=Y, Y=Z, Z=X, Z=1.
 // X=1,Y=1, Z=1.
 TEST(Variable, X_to_Y_and_Y_to_Z_and_Z_to_Z_and_Z_to_1) {
     Variable X("X"), Y("Y"), Z("Z");
@@ -185,14 +185,30 @@ TEST(Variable, X_to_Y_and_Y_to_Z_and_Z_to_Z_and_Z_to_1) {
     ASSERT_EQ("1", Z.value());
 }
 
-// X=Y,Z=X,Y=Z, Z=1.
-// X=1,Y=1, Z=1.
-TEST(Variable, X_to_Y_and_Z_to_X_and_Y_to_Z_and_Z_to_1) {
+
+
+// Z=X, X=Y, Y=Z, Z=1.
+// X=1, Y=1, Z=1.
+TEST(Variable, Z_to_X_and_X_to_Y_and_Y_to_Z_and_Z_to_1) {
     Variable X("X"), Y("Y"), Z("Z");
     Number n1(1);
+    ASSERT_TRUE(Z.match(X));
     ASSERT_TRUE(X.match(Y));
+    ASSERT_TRUE(Y.match(Z));
+    ASSERT_TRUE(Z.match(n1));
+    ASSERT_EQ("1", X.value());
+    ASSERT_EQ("1", Y.value());
+    ASSERT_EQ("1", Z.value());
+}
+
+// Z=X, Y=Z, X=Y, Z=1.
+// X=1, Y=1, Z=1.
+TEST(Variable, Z_to_X_and_Y_to_Z_and_X_to_Y_and_Z_to_1) {
+    Variable X("X"), Y("Y"), Z("Z");
+    Number n1(1);
     ASSERT_TRUE(Z.match(X));
     ASSERT_TRUE(Y.match(Z));
+    ASSERT_TRUE(X.match(Y));
     ASSERT_TRUE(Z.match(n1));
     ASSERT_EQ("1", X.value());
     ASSERT_EQ("1", Y.value());
@@ -319,4 +335,20 @@ TEST(Variable, Struct8) {
     ASSERT_EQ("s(Z)", Q.value());
 }
 
+// ?- X=Y, Z=X, Y=Z, Q=s(X), X=1.
+// Q = s(1),
+// X = 1, Y = 1, Z = 1
+TEST(Variable, Struct9) {
+    Variable X("X"), Y("Y"), Z("Z"), Q("Q");
+    Struct s(Atom("s"), vector<Term *>{&X});
+    Number n1(1);
+    ASSERT_TRUE(X.match(Y));
+    ASSERT_TRUE(Z.match(X));
+    ASSERT_TRUE(Y.match(Z));
+    ASSERT_TRUE(Q.match(s));
+    ASSERT_TRUE(X.match(n1));
+    ASSERT_EQ("1", X.value());
+    ASSERT_EQ("1", Y.value());
+    ASSERT_EQ("s(1)", Q.value());
+}
 #endif
