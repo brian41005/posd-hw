@@ -26,11 +26,12 @@ string Variable::value(vector<Term*> record) {
 string Variable::symbol() const { return _symbol; }
 
 bool Variable::match(Term& term) {
-    if (term.getVariable() && term.symbol() == symbol() && &term == this)
-        return true;
-
+    if (Variable* v = term.getVariable()) {
+        if (term.symbol() == symbol() || &term == this) return true;
+        if (v->_value == this) return true;
+    }
     if (_value) {
-        return (term.symbol() == _value->symbol() && &term == _value)
+        return (term.symbol() == _value->symbol() || &term == _value)
                    ? true
                    : _value->match(term);
     } else {

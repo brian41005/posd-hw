@@ -158,6 +158,14 @@ TEST(List, matchToSameListWithDiffVarNameShouldSucceed) {
     ASSERT_TRUE(l1.match(l2));
 }
 
+// ?- [X, Y] = [Y, X].
+// true.
+TEST(List, matchToSameListWithDiffVarNameShouldSucceed2) {
+    Variable X("X"), Y("Y");
+    List l1(vector<Term*>{&X, &Y}), l2(vector<Term*>{&Y, &X});
+    ASSERT_TRUE(l1.match(l2));
+}
+
 // ?- [496, X, terence_tao] = [496, 8128, terence_tao].
 // X = 8128.
 TEST(List, matchToVarToAtominListShouldSucceed) {
