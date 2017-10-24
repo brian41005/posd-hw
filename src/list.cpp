@@ -36,7 +36,7 @@ string List::value(vector<Term *> record) {
     return out.str();
 }
 
-bool List::match(Term &term) {
+bool List::match(Term &term, vector<Variable *> record) {
     if (List *s = term.getList()) {
         if (s->_elements.size() == _elements.size()) {
             int failTime = 0;

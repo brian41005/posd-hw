@@ -21,7 +21,7 @@ class Variable : public Term {
    public:
     string symbol() const;
     string value(vector<Term*> record = vector<Term*>{});
-    bool match(Term&);
+    bool match(Term&, vector<Variable*> record = vector<Variable*>{});
     Variable* getVariable() { return this; }
 };
 #endif

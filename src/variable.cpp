@@ -25,15 +25,22 @@ string Variable::value(vector<Term*> record) {
 
 string Variable::symbol() const { return _symbol; }
 
-bool Variable::match(Term& term) {
-    if (Variable* v = term.getVariable()) {
-        if (term.symbol() == symbol() || &term == this) return true;
-        if (v->_value == this) return true;
-    }
+bool Variable::match(Term& term, vector<Variable*> record) {
+    record.push_back(this);
     if (_value) {
-        return (term.symbol() == _value->symbol() || &term == _value)
-                   ? true
-                   : _value->match(term);
+        vector<Variable*>::iterator index =
+            find(record.begin(), record.end(), this);
+        if (index != record.end() && index != record.end() - 1 &&
+            record.size() > 1) {
+            if (!term.getVariable()) record[record.size() - 2]->_value = &term;
+            return true;
+
+        } else {
+            if (term.symbol() == _symbol || this == &term) return true;
+            if (_value == &term) return true;
+            return _value->match(term, record);
+        }
+        //
     } else {
         _value = &term;
         return true;

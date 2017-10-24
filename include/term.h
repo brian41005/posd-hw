@@ -13,7 +13,8 @@ class Term {
    public:
     virtual string symbol() const = 0;
     virtual string value(vector<Term*> record = vector<Term*>{}) = 0;
-    virtual bool match(Term&) = 0;
+    virtual bool match(Term&,
+                       vector<Variable*> record = vector<Variable*>{}) = 0;
 
    public:
     // get composite

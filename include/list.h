@@ -22,7 +22,7 @@ class List : public Term {
    public:
     string symbol() const;
     string value(vector<Term *> record = vector<Term *>{});
-    bool match(Term &term);
+    bool match(Term &term, vector<Variable *> record = vector<Variable *>{});
     List *getList() { return this; }
 };
 
