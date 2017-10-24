@@ -39,18 +39,16 @@ string List::value() const {
     out << "]";
     return out.str();
 }
+bool List::match(Variable &variable) { return variable.match(*this); }
+bool List::match(Term &term) { return false; }
 
-bool List::match(Term &term) {
-    if (List *s = term.getList()) {
-        if (s->_elements.size() == _elements.size()){
-            int failTime = 0;
-            for (int i = 0; i < _elements.size(); i++)
-                failTime += (!_elements[i]->match(*s->_elements[i]));
-            return failTime == 0;
-        }
-        return false;
-    } else if (Variable *v = term.getVariable()) {
-        return v->match(*this);
-    } else
-        return false;
+bool List::match(List &list) {
+    if (list._elements.size() == _elements.size()){
+        int failTime = 0;
+        for (int i = 0; i < _elements.size(); i++)
+            failTime += (!_elements[i]->match(*list._elements[i]));
+        return failTime == 0;
+    }
+    return false;
 }
+
