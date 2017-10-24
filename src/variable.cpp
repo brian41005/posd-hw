@@ -10,8 +10,8 @@ bool Variable::match(Term& term) {
     if (_value == NULL) {
         if (Variable* v = term.getVariable()) {
             if (v->symbol() != symbol() && &term != this) _value = &term;
-
-        } else
+        }
+        else
             _value = &term;
         return true;
     } 

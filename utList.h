@@ -98,8 +98,11 @@ TEST(List, matchToVarOccuredInListShouldFail) {
     Number n1(496);
     Variable X("X");
     List l1(vector<Term*>{&n1, &X, &a1});
-    ASSERT_EQ("X", X.value());
+    // EXPECT_FALSE(X.match(l1));
+    // EXPECT_FALSE(l1.match(X));
     ASSERT_TRUE(X.match(l1));
+    ASSERT_TRUE(l1.match(X));
+
 
 }
 
@@ -122,6 +125,14 @@ TEST(List, matchToSameListWithDiffVarNameShouldSucceed) {
     Variable X("X"), Y("Y");
     List l1(vector<Term*>{&n1, &X, &a1}), l2(vector<Term*>{&n1, &Y, &a1});
 
+    ASSERT_TRUE(l1.match(l2));
+}
+
+// ?- [X, Y] = [Y, X].
+// true.
+TEST(List, matchToSameListWithDiffVarNameShouldSucceed2) {
+    Variable X("X"), Y("Y");
+    List l1(vector<Term*>{&X, &Y}), l2(vector<Term*>{&Y, &X});
     ASSERT_TRUE(l1.match(l2));
 }
 
