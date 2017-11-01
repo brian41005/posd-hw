@@ -51,13 +51,14 @@ bool Variable::match(Term& term) {
         return false;
 
     _isMatching = true;
-    Term* value = _value;
-    if (Variable* v = value->getVariable()){
+    bool result;
+    if (Variable* v = _value->getVariable()){
         if (v->_value == this || v->_isMatching)
-            return v->matchForce(term);
+            result = v->matchForce(term);
         else
-            return v->match(term);
+            result = v->match(term);
     }
-        
+    _isMatching = false;
+    return result;
 
 }
