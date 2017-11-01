@@ -38,6 +38,7 @@ bool Variable::matchForce(Term& term){
     _value = &term;
     return true;
 }
+
 bool Variable::match(Term& term) {
     if (!_value){
         _value = &term;
@@ -52,13 +53,10 @@ bool Variable::match(Term& term) {
 
     _isMatching = true;
     bool result;
-    if (Variable* v = _value->getVariable()){
-        if (v->_value == this || v->_isMatching)
-            result = v->matchForce(term);
-        else
-            result = v->match(term);
-    }
+    
+    if (Variable* v = _value->getVariable())
+        result = (v->_value == this || v->_isMatching)?v->matchForce(term):v->match(term); 
+
     _isMatching = false;
     return result;
-
 }
