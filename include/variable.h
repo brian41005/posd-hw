@@ -13,14 +13,15 @@ class Variable : public Term {
    private:
     const string _symbol;
     Term* _value;
-
+    bool _isSearching;
+    string getLastSymbol();
    public:
     Variable(string);
 
     // Term's interface
    public:
     string symbol() const;
-    string value(vector<Term*> record = vector<Term*>{});
+    string value();
     bool match(Term&, vector<Variable*> record = vector<Variable*>{});
     Variable* getVariable() { return this; }
 };

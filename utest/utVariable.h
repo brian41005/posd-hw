@@ -321,7 +321,7 @@ TEST(Variable, Struct7) {
 
 // ?- X=Y, Y=Z, Z=X, Q=s(X).
 // Q = s(Z),
-// X = Z, Y = X
+// X = Y, Y = Z
 TEST(Variable, Struct8) {
     Variable X("X"), Y("Y"), Z("Z"), Q("Q");
     Struct s(Atom("s"), vector<Term *>{&X});

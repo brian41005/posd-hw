@@ -18,7 +18,7 @@ class Atom : public Term {
     // Term's interface
    public:
     string symbol() const;
-    string value(vector<Term*> record = vector<Term*>{});
+    string value();
     bool match(Term&, vector<Variable*> record = vector<Variable*>{});
 };
 #endif

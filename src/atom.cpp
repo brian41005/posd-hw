@@ -4,7 +4,7 @@ Atom::Atom(string s) : _symbol(s) {}
 
 string Atom::symbol() const { return _symbol; }
 
-string Atom::value(vector<Term*> record) { return _symbol; }
+string Atom::value() { return _symbol; }
 
 bool Atom::match(Variable& v, vector<Variable*> record) {
     return v.match(*this);

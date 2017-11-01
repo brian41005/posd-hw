@@ -1,28 +1,35 @@
 #include "../include/variable.h"
 #include <iostream>
-Variable::Variable(string symbol) : _symbol(symbol) { _value = NULL; }
-
-string Variable::value(vector<Term*> record) {
-    record.push_back(this);
-    string result;
-    if (_value) {
-        vector<Term*>::iterator index =
-            find(record.begin(), record.end(), this);
-        if (index != record.end() && index != record.end() - 1 &&
-            record.size() > 1) {
-            if (record[record.size() - 2]->getVariable())
-                result = record.size() > 2 ? record[record.size() - 2]->symbol()
-                                           : _value->symbol();
-            else
-                result = record[distance(record.begin(), index)]->symbol();
-
-        } else
-            result = _value->value(record);
-    } else
-        result = _symbol;
-    return result;
+Variable::Variable(string symbol) : _symbol(symbol) { 
+    _value = NULL;
+    _isSearching = false;
 }
 
+string Variable::value() {
+    if (!_value)
+        return symbol();
+    if (_isSearching)
+        return getLastSymbol();
+    _isSearching = true;
+    string result = _value->value();
+    _isSearching = false;
+    return result; 
+
+    
+}
+string Variable::getLastSymbol(){
+    if (!_value->getVariable())
+        return symbol();
+
+    Term* value = _value;
+    while (Variable* tempVaribale = value->getVariable()){
+        if (tempVaribale->_value == this)
+            return tempVaribale->symbol();
+        value = tempVaribale->_value;
+
+    }
+       
+}
 string Variable::symbol() const { return _symbol; }
 
 bool Variable::match(Term& term, vector<Variable*> record) {

@@ -25,13 +25,12 @@ string List::symbol() const {
     return out.str();
 }
 
-string List::value(vector<Term *> record) {
-    record.push_back(this);
+string List::value() {
     ostringstream out;
     out << "[";
-    if (!_elements.empty()) out << _elements[0]->value(record);
+    if (!_elements.empty()) out << _elements[0]->value();
     for (auto t = _elements.begin() + 1; t < _elements.end(); t++)
-        out << ", " << (*t)->value(record);
+        out << ", " << (*t)->value();
     out << "]";
     return out.str();
 }
