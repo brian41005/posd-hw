@@ -52,8 +52,8 @@ bool Variable::match(Term& term) {
         return false;
 
     _isMatching = true;
-    bool result;
-    
+    bool result = false;
+
     if (Variable* v = _value->getVariable())
         result = (v->_value == this || v->_isMatching)?v->matchForce(term):v->match(term); 
 
