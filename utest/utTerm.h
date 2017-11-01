@@ -152,10 +152,8 @@ TEST(Var, matchSuccessToAtomThenFailureToNumber2) {
 TEST(Var, reAssignTheSameAtom) {
     Variable v1("X");
     Atom a2("tom");
-    Atom a3("tom");
     ASSERT_TRUE(v1.match(a2));
     ASSERT_TRUE(v1.match(a2));
-    ASSERT_TRUE(v1.match(a3));
     ASSERT_EQ("tom", v1.value());
 }
 

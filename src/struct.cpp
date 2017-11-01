@@ -26,10 +26,10 @@ string Struct::value() {
     return out.str();
 }
 
-bool Struct::match(Variable& v, vector<Variable*> record) { return v.match(*this); }
-bool Struct::match(Term& term, vector<Variable*> record) { return false; }
+bool Struct::match(Variable& v) { return v.match(*this); }
+bool Struct::match(Term& term) { return false; }
 
-bool Struct::match(Struct& s, vector<Variable*> record) {
+bool Struct::match(Struct& s) {
     if (_name.match(s._name) && _terms.size() == s._terms.size()) {
         int failTime = 0;
         for (int i = 0; i < _terms.size(); i++)

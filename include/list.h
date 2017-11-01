@@ -17,13 +17,13 @@ class List : public Term {
     List(vector<Term *>);
     Term *head() const;
     List *tail() const;
-    bool match(Variable&, vector<Variable *> record = vector<Variable *>{});
-    bool match(List&, vector<Variable *> record = vector<Variable *>{});
+    bool match(Variable&);
+    bool match(List&);
     // Term's interfaces
    public:
     string symbol() const;
     string value();
-    bool match(Term&, vector<Variable *> record = vector<Variable *>{});
+    bool match(Term&);
     List *getList() { return this; }
 };
 

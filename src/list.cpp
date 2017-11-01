@@ -35,10 +35,10 @@ string List::value() {
     return out.str();
 }
 
-bool List::match(Variable& variable, vector<Variable *> record) { return variable.match(*this); }
-bool List::match(Term &term, vector<Variable *> record) { return false; }
+bool List::match(Variable& variable) { return variable.match(*this); }
+bool List::match(Term &term) { return false; }
 
-bool List::match(List& list, vector<Variable *> record) {
+bool List::match(List& list) {
     if (list._elements.size() == _elements.size()) {
         int failTime = 0;
         for (int i = 0; i < _elements.size(); i++)

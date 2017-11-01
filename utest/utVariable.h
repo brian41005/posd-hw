@@ -143,8 +143,8 @@ TEST(Variable, X_to_Y_and_Y_to_X_and_Y_to_1) {
     // ASSERT_EQ("1", Y.value());
 }
 
-// X=Y,Y=Z,Z=X, X=1.
-// X=1,Y=1, Z=1.
+// X=Y, Y=Z, Z=X, X=1.
+// X=1, Y=1, Z=1.
 TEST(Variable, X_to_Y_and_Y_to_Z_and_Z_to_Z_and_X_to_1) {
     Variable X("X"), Y("Y"), Z("Z");
     Number n1(1);

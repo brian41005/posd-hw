@@ -18,14 +18,14 @@ class Struct : public Term {
     Struct(Atom, vector<Term *>);
     const Atom name() const;
     const Term *args(int) const;
-    bool match(Variable &, vector<Variable *> record = vector<Variable *>{});
-    bool match(Struct &, vector<Variable *> record = vector<Variable *>{});
+    bool match(Variable &);
+    bool match(Struct &);
 
     // Term's interface
    public:
     string symbol() const;
     string value();
-    bool match(Term &, vector<Variable *> record = vector<Variable *>{});
+    bool match(Term &);
     Struct *getStruct() { return this; }
 };
 

@@ -14,7 +14,9 @@ class Variable : public Term {
     const string _symbol;
     Term* _value;
     bool _isSearching;
+    bool _isMatching;
     string getLastSymbol();
+    bool matchForce(Term&);
    public:
     Variable(string);
 
@@ -22,7 +24,7 @@ class Variable : public Term {
    public:
     string symbol() const;
     string value();
-    bool match(Term&, vector<Variable*> record = vector<Variable*>{});
+    bool match(Term&);
     Variable* getVariable() { return this; }
 };
 #endif

@@ -3,6 +3,7 @@
 Variable::Variable(string symbol) : _symbol(symbol) { 
     _value = NULL;
     _isSearching = false;
+    _isMatching = false;
 }
 
 string Variable::value() {
@@ -17,6 +18,7 @@ string Variable::value() {
 
     
 }
+
 string Variable::getLastSymbol(){
     if (!_value->getVariable())
         return symbol();
@@ -32,22 +34,30 @@ string Variable::getLastSymbol(){
 }
 string Variable::symbol() const { return _symbol; }
 
-bool Variable::match(Term& term, vector<Variable*> record) {
-    record.push_back(this);
-    if (_value) {
-
-        vector<Variable*>::iterator index = find(record.begin(), record.end(), this);
-
-        if (index != record.end() && index != record.end() - 1 && record.size() > 1) {
-            if (!term.getVariable()) record[record.size() - 2]->_value = &term;
-            return true;
-
-        } else {
-            return  (term.symbol() == _symbol || this == &term || _value == &term)? true:_value->match(term, record);
-        }
-
-    } else {
+bool Variable::matchForce(Term& term){
+    _value = &term;
+    return true;
+}
+bool Variable::match(Term& term) {
+    if (!_value){
         _value = &term;
         return true;
     }
+
+    if (_value == &term || &term == this)
+        return true;
+
+    if (!_value->getVariable())
+        return false;
+
+    _isMatching = true;
+    Term* value = _value;
+    if (Variable* v = value->getVariable()){
+        if (v->_value == this || v->_isMatching)
+            return v->matchForce(term);
+        else
+            return v->match(term);
+    }
+        
+
 }

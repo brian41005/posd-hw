@@ -13,12 +13,12 @@ class Atom : public Term {
 
    public:
     Atom(string);
-    bool match(Variable&, vector<Variable*> record = vector<Variable*>{});
+    bool match(Variable&);
 
     // Term's interface
    public:
     string symbol() const;
     string value();
-    bool match(Term&, vector<Variable*> record = vector<Variable*>{});
+    bool match(Term&);
 };
 #endif
