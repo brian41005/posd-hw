@@ -32,6 +32,7 @@ string Variable::getLastSymbol(){
     }
        
 }
+
 string Variable::symbol() const { return _symbol; }
 
 bool Variable::matchForce(Term& term){
