@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
-#include "../utList.h"
+#include "../utest//utParser.h"
+#include "../utest/utList.h"
 #include "../utest/utStruct.h"
 #include "../utest/utTerm.h"
 #include "../utest/utVariable.h"
