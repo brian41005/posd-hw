@@ -125,6 +125,7 @@ TEST(List, specialCase2) {
     ASSERT_FALSE(X.match(n1));
 }
 
+
 // ?- [496, X, terence_tao] = [496, X, terence_tao].
 // true.
 TEST(List, matchToSameListShouldSucceed) {
@@ -132,10 +133,16 @@ TEST(List, matchToSameListShouldSucceed) {
     Number n1(496);
     Variable X("X");
     List l1(vector<Term *>{&n1, &X, &a1}), l2(vector<Term *>{&n1, &X, &a1});
-
+    
     ASSERT_TRUE(l1.match(l2));
 }
 
+TEST(List, matchToSameListShouldSucceed2) {
+    Variable X("X");
+    List l1(vector<Term *>{&X}), l2(vector<Term *>{&X});
+
+    ASSERT_TRUE(l1.match(l2));
+}
 // ?- [496, X, terence_tao] = [496, Y, terence_tao].
 // true.
 TEST(List, matchToSameListWithDiffVarNameShouldSucceed) {

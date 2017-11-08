@@ -14,7 +14,7 @@ Number::Number(double n) {
 
 string Number::value() { return _n; }
 
-string Number::symbol() const { return _n; }
+string Number::symbol() { return _n; }
 
 bool Number::match(Variable& v) {
     return v.match(*this);

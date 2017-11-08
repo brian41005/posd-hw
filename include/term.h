@@ -11,7 +11,7 @@ using namespace std;
 
 class Term {
    public:
-    virtual string symbol() const = 0;
+    virtual string symbol() = 0;
     virtual string value() = 0;
     virtual bool match(Term&) = 0;
 

@@ -19,7 +19,7 @@ class Number : public Term {
 
     // Term's interface
    public:
-    string symbol() const;
+    string symbol() ;
     string value();
     bool match(Term &);
 };

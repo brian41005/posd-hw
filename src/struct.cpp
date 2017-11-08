@@ -1,12 +1,21 @@
 #include "../include/struct.h"
+#include <iostream>
+Struct::Struct(): _name(Atom(".")), _terms(vector<Term*>{}) {
 
+}
 Struct::Struct(Atom atom, vector<Term*> terms) : _name(atom), _terms(terms) {}
 
-const Atom Struct::name() const { return _name; }
+Struct::Struct(Atom name, Term* head, Term* tail):_name(name){
+    if (head)
+        _terms.push_back(head);
+    if (tail)
+        _terms.push_back(tail);
+}
+Atom Struct::name() const { return _name; }
 
-const Term* Struct::args(int i) const { return _terms[i]; }
+Term* Struct::args(int i) const { return (i < _terms.size())?_terms[i]:nullptr; }
 
-string Struct::symbol() const {
+string Struct::symbol() {
     ostringstream out;
     out << _name.symbol() << "(";
     if (!_terms.empty()) out << _terms[0]->symbol();
@@ -26,15 +35,17 @@ string Struct::value() {
     return out.str();
 }
 
-bool Struct::match(Variable& v) { return v.match(*this); }
-bool Struct::match(Term& term) { return false; }
 
-bool Struct::match(Struct& s) {
-    if (_name.match(s._name) && _terms.size() == s._terms.size()) {
-        int failTime = 0;
-        for (int i = 0; i < _terms.size(); i++)
-            failTime += (!_terms[i]->match(*s._terms[i]));
-        return failTime == 0;
+bool Struct::match(Term& term) { 
+    if (Variable* v = term.getVariable())
+        return v->match(*this); 
+    else if (Struct* s = term.getStruct()){
+        if (_name.match(s->_name) && _terms.size() == s->_terms.size()) {
+            int failTime = 0;
+            for (int i = 0; i < _terms.size(); i++)
+                failTime += (!_terms[i]->match(*s->_terms[i]));
+            return failTime == 0;
+        }
     }
-    return false;
+    return false; 
 }
