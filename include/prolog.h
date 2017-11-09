@@ -1,7 +1,7 @@
 #ifndef PROLOG_H
 #define PROLOG_H
 
-#include "atom.h"
+#include "list.h"
 
 class Prolog
 {
@@ -19,7 +19,7 @@ public:
     const int ATOM = 257;
     const int ATOMSC = 258;
     const int VARIABLE = 259;
-    Atom EMPTY_LIST = Atom("[]");
+    List EMPTY_LIST;
     static Prolog *getInstance();
     bool isSpecialChar(char c);
 

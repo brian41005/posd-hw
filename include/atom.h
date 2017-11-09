@@ -13,7 +13,6 @@ class Atom : public Term {
 
    public:
     Atom(string);
-    bool match(Variable&);
 
     // Term's interface
    public:

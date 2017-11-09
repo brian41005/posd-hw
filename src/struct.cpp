@@ -5,12 +5,6 @@ Struct::Struct(): _name(Atom(".")), _terms(vector<Term*>{}) {
 }
 Struct::Struct(Atom atom, vector<Term*> terms) : _name(atom), _terms(terms) {}
 
-Struct::Struct(Atom name, Term* head, Term* tail):_name(name){
-    if (head)
-        _terms.push_back(head);
-    if (tail)
-        _terms.push_back(tail);
-}
 Atom Struct::name() { return _name; }
 
 Term* Struct::args(int i) { return (i < _terms.size())?_terms[i]:nullptr; }
@@ -46,10 +40,14 @@ bool Struct::match(Term& term) {
         return v->match(*this); 
     else if (Struct* s = term.getStruct()){
         if (_name.match(s->_name) && _terms.size() == s->_terms.size()) {
-            int failTime = 0;
-            for (int i = 0; i < _terms.size(); i++)
-                failTime += (!_terms[i]->match(*s->_terms[i]));
-            return failTime == 0;
+            for (int i = 0; i < _terms.size(); i++){
+                if (_terms.size() == 2 && i == 0)
+                    if (s->_terms[0]->getVariable() && s->_terms[1]->symbol() == "[]")
+                        return s->_terms[0]->match(*this);
+                if (!_terms[i]->match(*s->_terms[i])) return false;
+
+            }
+            return true;
         }
     }
     return false; 

@@ -7,7 +7,6 @@
 #include <vector>
 #include "atom.h"
 #include "term.h"
-
 using std::vector;
 
 class Struct : public Term {
@@ -19,7 +18,6 @@ class Struct : public Term {
     
 public:
     Struct();
-    Struct(Atom, Term*, Term*);
     Struct(Atom, vector<Term *>);
     Atom name();
     Term *args(int);

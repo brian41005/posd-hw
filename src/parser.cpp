@@ -46,9 +46,9 @@ Term *Parser::buildListOrStruct()
         for (int i = args.size() - 1; i >= 0; i--)
         {
             if (tail->getList() || tail->match(_prolog->EMPTY_LIST))
-            tail = new List(args[i], tail);
+                tail = new List(args[i], tail);
             else
-            tail = new Struct(Atom("."), {args[i], tail});
+                tail = new Struct(Atom("."), {args[i], tail});
         }
         return (tail) ? tail : new List();
     }

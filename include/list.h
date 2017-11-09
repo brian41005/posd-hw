@@ -11,9 +11,8 @@ using std::runtime_error;
 class List : public Struct {
 
    public:
-    List();
     List(vector<Term*>);
-    List(Term*, Term*);
+    List(Term* head = nullptr, Term* tail = nullptr);
     Term *head() const;
     List *tail() const;
     // Term's interfaces

@@ -1,16 +1,25 @@
 #include "../include/list.h"
 #include "../include/variable.h"
 #include <iostream>
-List::List():Struct(){
-}
-List::List(vector<Term*> terms){
+
+List::List(vector<Term*> terms):Struct(){
     if(terms.size() > 0){
         _terms.push_back(terms[0]);
         _terms.push_back(new List(vector<Term*>(terms.begin() + 1, terms.end())));
     }
         
 }
-List::List(Term* head = nullptr, Term* tail = nullptr):Struct(Atom("."), head, tail) {}
+List::List(Term* head, Term* tail):Struct() {
+    vector<Term*> terms ={};
+    if (head)
+        terms.push_back(head);
+    if (tail)
+        terms.push_back(tail);
+    if(terms.size() > 0){
+        _terms.push_back(terms[0]);
+        _terms.push_back(new List(vector<Term*>(terms.begin() + 1, terms.end())));
+    }
+}
 
 Term *List::head() const {
     if (_terms.empty()) throw string("Accessing head in an empty list");
