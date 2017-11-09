@@ -20,7 +20,7 @@ private:
     Prolog *_prolog;
     pair<string, int> _currentToken;
 public:
-    Parser(Scanner scanner);
+    Parser(Scanner);
     Term *createTerm();
     Term *buildStruct(Atom *functor);
     Term *buildListOrStruct();

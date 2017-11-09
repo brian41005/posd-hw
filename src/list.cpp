@@ -1,54 +1,62 @@
 #include "../include/list.h"
 #include "../include/variable.h"
-
-List::List() : _elements() {}
-
-List::List(const vector<Term *> &elements) : _elements(elements) {}
+#include <iostream>
+List::List():Struct(){
+}
+List::List(vector<Term*> terms){
+    if(terms.size() > 0){
+        _terms.push_back(terms[0]);
+        _terms.push_back(new List(vector<Term*>(terms.begin() + 1, terms.end())));
+    }
+        
+}
+List::List(Term* head = nullptr, Term* tail = nullptr):Struct(Atom("."), head, tail) {}
 
 Term *List::head() const {
-    if (_elements.empty())
-        throw string("Accessing head in an empty list");
-    return _elements.front(); 
+    if (_terms.empty()) throw string("Accessing head in an empty list");
+    return _terms.front();
 }
 
 List *List::tail() const {
-    if (_elements.empty())
-        throw string("Accessing tail in an empty list");
-    
-    vector<Term *>::const_iterator first = _elements.begin() + 1;
-    vector<Term *>::const_iterator last = _elements.end();
-    return new List(vector<Term *>(first, last));
+    if (!(_terms.size() > 1)) throw string("Accessing tail in an empty list");
+    return _terms[1]->getList();
 }
 
-string List::symbol() const {
+string List::symbol() {
     ostringstream out;
     out << "[";
-    if (!_elements.empty()) out << _elements[0]->symbol();
-    for (auto t = _elements.begin() + 1; t < _elements.end(); t++)
-        out << ", " << (*t)->symbol();
-    out << "]";
-    return out.str();
-}
+    List *list = getList();
+    while(list){
+        if(list->_terms.empty())
+            break;
+        out << (((list != this) ? ", " : "") + list->_terms[0]->symbol());
 
-string List::value() const {
-    ostringstream out;
-    out << "[";
-    if (!_elements.empty()) out << _elements[0]->value();
-    for (auto t = _elements.begin() + 1; t < _elements.end(); t++)
-        out << ", " << (*t)->value();
-    out << "]";
-    return out.str();
-}
-bool List::match(Variable &variable) { return variable.match(*this); }
-bool List::match(Term &term) { return false; }
-
-bool List::match(List &list) {
-    if (list._elements.size() == _elements.size()){
-        int failTime = 0;
-        for (int i = 0; i < _elements.size(); i++)
-            failTime += (!_elements[i]->match(*list._elements[i]));
-        return failTime == 0;
+        if(list->_terms.size() > 1)
+            list = list->_terms[1]->getList();
+        else
+            break;
     }
-    return false;
+
+    out << "]";
+    return out.str();
 }
 
+string List::value() {
+    ostringstream out;
+    out << "[";
+    List *list = getList();
+    while(list){
+        if(list->_terms.empty())
+            break;
+        out << (((list != this) ? ", " : "") + list->_terms[0]->value());
+
+        if(list->_terms.size() > 1)
+            list = list->_terms[1]->getList();
+        else
+            break;
+    }
+
+    
+    out << "]";
+    return out.str();
+}

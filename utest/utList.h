@@ -92,17 +92,39 @@ TEST(List, matchToVarShouldSucceed) {
 }
 
 // ?- X = [496, X, terence_tao].
-// false
+// false.QQ
 TEST(List, matchToVarOccuredInListShouldFail) {
     Atom a1("terence_tao");
     Number n1(496);
     Variable X("X");
     List l1(vector<Term *>{&n1, &X, &a1});
-    // EXPECT_FALSE(X.match(l1));
-    // EXPECT_FALSE(l1.match(X));
+    ASSERT_EQ("X", X.value());
     ASSERT_TRUE(X.match(l1));
-    ASSERT_TRUE(l1.match(X));
+    ASSERT_EQ("[496, X, terence_tao]", X.value());
 }
+
+// ?- X = [X].
+//  X = [X]
+TEST(List, matchToVarOccuredInListShouldSucceed) {
+    Variable X("X");
+    List l1(vector<Term *>{&X});
+    ASSERT_EQ("X", X.value());
+    ASSERT_TRUE(X.match(l1));
+    ASSERT_EQ("[X]", X.value());
+}
+
+// ?- X = [X], X = 1.
+//  false.
+TEST(List, specialCase2) {
+    Variable X("X");
+    List l1(vector<Term *>{&X});
+    Number n1(1);
+    ASSERT_EQ("X", X.value());
+    ASSERT_TRUE(X.match(l1));
+    ASSERT_EQ("[X]", X.value());
+    ASSERT_FALSE(X.match(n1));
+}
+
 
 // ?- [496, X, terence_tao] = [496, X, terence_tao].
 // true.
@@ -111,10 +133,16 @@ TEST(List, matchToSameListShouldSucceed) {
     Number n1(496);
     Variable X("X");
     List l1(vector<Term *>{&n1, &X, &a1}), l2(vector<Term *>{&n1, &X, &a1});
-
+    
     ASSERT_TRUE(l1.match(l2));
 }
 
+TEST(List, matchToSameListShouldSucceed2) {
+    Variable X("X");
+    List l1(vector<Term *>{&X}), l2(vector<Term *>{&X});
+
+    ASSERT_TRUE(l1.match(l2));
+}
 // ?- [496, X, terence_tao] = [496, Y, terence_tao].
 // true.
 TEST(List, matchToSameListWithDiffVarNameShouldSucceed) {
@@ -130,7 +158,7 @@ TEST(List, matchToSameListWithDiffVarNameShouldSucceed) {
 // true.
 TEST(List, matchToSameListWithDiffVarNameShouldSucceed2) {
     Variable X("X"), Y("Y");
-    List l1(vector<Term *>{&X, &Y}), l2(vector<Term *>{&Y, &X});
+    List l1(vector<Term*>{&X, &Y}), l2(vector<Term*>{&Y, &X});
     ASSERT_TRUE(l1.match(l2));
 }
 

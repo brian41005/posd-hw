@@ -15,10 +15,12 @@ class Number : public Term {
 
    public:
     Number(double);
+    bool match(Variable &);
 
+    // Term's interface
    public:
-    string value() const;
-    string symbol() const;
+    string symbol() ;
+    string value();
     bool match(Term &);
 };
 #endif

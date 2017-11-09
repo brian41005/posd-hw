@@ -16,7 +16,7 @@ private:
     int _position;
 
 public:
-    Scanner(string);
+    Scanner(string input="");
     pair<string, int> nextToken();
     int skipLeadingWhiteSpace();
     string extractNumber();

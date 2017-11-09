@@ -1,13 +1,13 @@
 #include "../include/prolog.h"
 
-Prolog::_instance = nullptr;
+Prolog* Prolog::_instance = nullptr;
 
 Prolog::Prolog()
 {
 
 }
 
-static Prolog* Prolog::getInstance(){
+Prolog* Prolog::getInstance(){
     if (!_instance)
         _instance = new Prolog();
     return _instance;

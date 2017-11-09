@@ -1,6 +1,7 @@
 #ifndef STRUCT_H
 #define STRUCT_H
 
+
 #include <sstream>
 #include <string>
 #include <vector>
@@ -11,19 +12,25 @@ using std::vector;
 
 class Struct : public Term {
    private:
-    vector<Term*> _terms;
+    
+   protected:
+    vector<Term *> _terms;
     Atom _name;
-
+    
+public:
+    Struct();
+    Struct(Atom, Term*, Term*);
+    Struct(Atom, vector<Term *>);
+    Atom name();
+    Term *args(int);
+    int arity();
+    
+    // Term's interface
    public:
-    Struct(Atom, vector<Term*>);
-    const Atom name() const;
-    const Term* args(int) const;
-    Struct* getStruct() { return this; }
-
-   public:
-    string symbol() const;
-    string value() const;
-    bool match(Term&);
+    string symbol();
+    string value();
+    bool match(Term &);
+    Struct *getStruct() { return this; }
 };
 
 #endif

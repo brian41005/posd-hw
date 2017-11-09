@@ -3,7 +3,7 @@
 #include "../include/scanner.h"
 #include <iostream>
 
-Scanner::Scanner(string input="") : _prolog(Prolog::getInstance()), _buffer(input), _position(0)
+Scanner::Scanner(string input) : _prolog(Prolog::getInstance()), _buffer(input), _position(0)
 {
 }
 
