@@ -1,12 +1,9 @@
 #ifndef UTPARSER_H
 #define UTPARSER_H
 
-#include "../include/list.h"
-#include "../include/number.h"
 #include "../include/parser.h"
 #include "../include/scanner.h"
-#include "../include/term.h"
-#include "../include/variable.h"
+
 
 TEST(Parser, createTerm_Var){
     Scanner scanner("X");
@@ -112,7 +109,6 @@ TEST(Parser, parseVar) {
 TEST(Parser, parseStructNoArg) {
     Scanner scanner("point()");
     Parser parser(scanner);
-    //ASSERT_EQ(nullptr, parser.createTerm());
     ASSERT_EQ("point()", parser.createTerm()->symbol());
 }
 
