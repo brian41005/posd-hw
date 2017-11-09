@@ -21,10 +21,9 @@ public:
     Struct();
     Struct(Atom, Term*, Term*);
     Struct(Atom, vector<Term *>);
-    Atom name() const;
-    Term *args(int) const;
-    // bool match(Variable &);
-    // bool match(Struct &);
+    Atom name();
+    Term *args(int);
+    int arity();
     
     // Term's interface
    public:

@@ -3,7 +3,7 @@ CPPFLAGS = -std=gnu++0x
 INC_DIR  = include
 SRC      = src
 TARGET   = hw4
-OBJECTS  = atom.o number.o variable.o term.o struct.o list.o
+OBJECTS  = atom.o number.o variable.o term.o struct.o list.o scanner.o parser.o prolog.o
 UTEST    = $(utest *.h) $(./ *.h)
 
 
