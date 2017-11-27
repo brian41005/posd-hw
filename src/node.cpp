@@ -24,9 +24,6 @@ bool Node::evaluate()
         return left || right;
     }
     else if (payload == EQUALITY){
-        cout << left->term->symbol() <<endl;
-        cout << right->term->symbol() <<endl;
-        
         return ((left->term)->match(*right->term));
     }
         
