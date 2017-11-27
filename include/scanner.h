@@ -14,7 +14,8 @@ private:
     Prolog *_prolog;
     string _buffer;
     int _position;
-
+    bool isNumberChar(bool *hasPoint);
+    
 public:
     Scanner(string input="");
     pair<string, int> nextToken();
@@ -26,6 +27,8 @@ public:
     char extractChar();
     char currentChar();
     int position();
+    char nextChar();
+    bool isDone();
 
 };
 

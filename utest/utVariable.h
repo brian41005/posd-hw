@@ -36,6 +36,15 @@ TEST(Variable, numE_to_varX) {
     ASSERT_EQ("2.7182", n1.value());
 }
 
+// ?- X=1, X=Y.
+// Y=1
+TEST(Variable, varY_to_varX_and_num1_to_varX_QQ) {
+    Variable X("X"), Y("Y");
+    Number n1(1);
+    ASSERT_TRUE(X.match(n1));
+    ASSERT_TRUE(X.match(Y));
+}
+
 // ?- X=Y, X=1.
 // Y=1
 TEST(Variable, varY_to_varX_and_num1_to_varX) {

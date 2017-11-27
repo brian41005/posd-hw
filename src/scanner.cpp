@@ -1,29 +1,23 @@
 #include "../include/scanner.h"
-
-#include "../include/scanner.h"
 #include <iostream>
 
-Scanner::Scanner(string input) : _prolog(Prolog::getInstance()), _buffer(input), _position(0)
+Scanner::Scanner(string in) : _prolog(Prolog::getInstance()), _buffer(in), _position(0)
 {
+    //std::cout << "hello" << std::endl;
 }
 
 pair<string, int> Scanner::nextToken()
 {
     if (skipLeadingWhiteSpace() >= _buffer.length())
         return pair<string, int>("", _prolog->EOS);
-
     else if (isdigit(currentChar()))
         return pair<string, int>(extractNumber(), _prolog->NUMBER);
-
     else if (islower(currentChar()))
         return pair<string, int>(extractAtom(), _prolog->ATOM);
-
     else if (_prolog->isSpecialChar(currentChar()))
         return pair<string, int>(extractAtomSC(), _prolog->ATOMSC);
-
     else if (isupper(currentChar()) || currentChar() == '_')
         return pair<string, int>(extractVariable(), _prolog->VARIABLE);
-        
     else
     {
         char c = extractChar();
@@ -42,7 +36,7 @@ string Scanner::extractNumber()
 {
     int begin = _position;
     bool hasDot = false;
-    for (; isdigit(_buffer[_position]) || (!hasDot && (hasDot = _buffer[_position] == '.')); _position++)
+    for (; isNumberChar(&hasDot); _position++)
         ;
     return _buffer.substr(begin, _position - begin);
 }
@@ -84,4 +78,25 @@ char Scanner::currentChar()
 int Scanner::position()
 {
     return _position;
+}
+
+char Scanner::nextChar()
+{
+    if (_position + 1 < _buffer.length())
+        return _buffer[_position + 1];
+    return '\0';
+}
+
+bool Scanner::isNumberChar(bool *hasPoint)
+{
+    if (isdigit(currentChar()))
+        return true;
+    else if (!*hasPoint && currentChar() == '.' && isdigit(nextChar()))
+        return (*hasPoint = true);
+    return false;
+}
+
+bool Scanner::isDone()
+{
+    return (_position >= _buffer.length());
 }
