@@ -3,7 +3,11 @@ CPPFLAGS = -std=gnu++0x
 INC_DIR  = include
 SRC      = src
 TARGET   = hw6
+<<<<<<< HEAD
 OBJECTS  = atom.o number.o variable.o term.o struct.o list.o scanner.o parser.o prolog.o node.o parserInfo.o
+=======
+OBJECTS  = atom.o number.o variable.o term.o struct.o list.o scanner.o parser.o prolog.o
+>>>>>>> aebc399611fd83c6a77aca8ab57a38152a9e7150
 UTEST    = $(utest *.h) $(./ *.h)
 
 
