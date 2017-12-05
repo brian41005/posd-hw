@@ -14,7 +14,7 @@ void Parser::matchings()
     while (_currentToken.second != _prolog->EOS && _currentToken.second != '.')
     {
 
-        if (temp = createTerm())
+        if ((temp = createTerm()) != nullptr)
             _parserInfo.pushNode(new Node(TERM, temp, nullptr, nullptr));
         else
         {

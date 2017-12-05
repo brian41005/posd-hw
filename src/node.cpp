@@ -25,6 +25,8 @@ bool Node::evaluate()
     }
     else if (payload == EQUALITY){
         return ((left->term)->match(*right->term));
+    }else{
+        return false; 
     }
         
 }

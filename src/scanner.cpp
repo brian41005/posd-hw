@@ -27,7 +27,7 @@ pair<string, int> Scanner::nextToken()
 
 int Scanner::skipLeadingWhiteSpace()
 {
-    for (; _position < _buffer.length() && _buffer[_position] == ' ' || _buffer[_position] == '\t'; _position++)
+    for (; _position < _buffer.length() && (_buffer[_position] == ' ' || _buffer[_position] == '\t'); _position++)
         ;
     return _position;
 }
