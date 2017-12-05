@@ -1,9 +1,9 @@
-CXX      = g++
+CXX      = clang++
 CPPFLAGS = -std=gnu++0x
 INC_DIR  = include
 SRC      = src
-TARGET   = hw6
-OBJECTS  = atom.o number.o variable.o term.o struct.o list.o scanner.o parser.o prolog.o node.o parserInfo.o
+TARGET   = hw7
+OBJECTS  = atom.o number.o variable.o term.o struct.o list.o scanner.o parser.o prolog.o node.o parserInfo.o iterator.o
 UTEST    = $(utest *.h) $(./ *.h)
 
 

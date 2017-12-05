@@ -10,8 +10,9 @@ using std::vector;
 
 class List : public Struct {
    public:
+    List();
     List(vector<Term *>);
-    List(Term *head = nullptr, Term *tail = nullptr);
+    List(Term *head, Term *tail);
     Term *head() const;
     List *tail() const;
     // Term's interfaces
@@ -19,6 +20,7 @@ class List : public Struct {
     string symbol();
     string value();
     List *getList() { return this; }
+    Iterator<Term*>* createIterator() {return new ListIterator(this);}
 };
 
 #endif

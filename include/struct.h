@@ -5,19 +5,16 @@
 #include <sstream>
 #include <string>
 #include <vector>
-#include "atom.h"
 #include "term.h"
-
+#include "atom.h"
 using std::vector;
 
 class Struct : public Term {
-   private:
-    
    protected:
     vector<Term *> _terms;
     Atom _name;
     
-public:
+   public:
     Struct();
     Struct(Atom, Term*, Term*);
     Struct(Atom, vector<Term *>);
@@ -31,6 +28,7 @@ public:
     string value();
     bool match(Term &);
     Struct *getStruct() { return this; }
+    Iterator<Term*>* createIterator() {return new StructIterator(this);}
 };
 
 #endif

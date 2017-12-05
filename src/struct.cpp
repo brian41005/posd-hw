@@ -1,4 +1,6 @@
 #include "../include/struct.h"
+#include "../include/variable.h"
+
 #include <iostream>
 Struct::Struct(): _name(Atom(".")), _terms(vector<Term*>{}) {
 

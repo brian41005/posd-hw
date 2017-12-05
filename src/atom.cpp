@@ -1,5 +1,4 @@
 #include "../include/atom.h"
-
 Atom::Atom(string s) : _symbol(s) {}
 
 string Atom::symbol() { return _symbol; }

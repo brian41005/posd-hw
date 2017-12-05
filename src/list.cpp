@@ -1,7 +1,9 @@
 #include "../include/list.h"
 #include <iostream>
 #include "../include/variable.h"
+List::List():Struct(Atom("."), nullptr, nullptr){
 
+}
 List::List(vector<Term *> terms) {
     if (terms.size() > 0) {
         _terms.push_back(terms[0]);

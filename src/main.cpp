@@ -4,6 +4,7 @@
 #include "../utest/utTerm.h"
 #include "../utest/utVariable.h"
 #include "../utest/utParser.h"
+#include "../utest/utIterator.h"
 
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
