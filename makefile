@@ -1,4 +1,4 @@
-CXX      = clang++
+CXX      = g++
 CPPFLAGS = -std=gnu++0x
 INC_DIR  = include
 SRC      = src
