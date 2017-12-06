@@ -9,481 +9,394 @@ using std::cout;
 using std::endl;
 using std::vector;
 
-TEST(Iterator, empty_list_bfs) {
-    // [[], []]
-    List l1;
-    List l2;
-    List l3(&l1, &l2);
-
-    Iterator<Term*> *it = l3.createBFSIterator();
-
-    it->first();
-
-    ASSERT_FALSE(it->isDone());
-    ASSERT_EQ("[]", it->currentItem()->symbol());
-    it->next();
-    
-    ASSERT_FALSE(it->isDone());
-    ASSERT_EQ("[]", it->currentItem()->symbol()); 
-    it->next();
-
-    ASSERT_TRUE(it->isDone());
+TEST(iterator, first) {
+    Number one(1);
+    Variable X("X");
+    Variable Y("Y");
+    Number two(2);
+    Struct t(Atom("t"), {&X, &two});
+    Struct s(Atom("s"), {&one, &t, &Y});
+    Iterator<Term*>* itStruct = s.createIterator();
+    itStruct->first();
+    ASSERT_EQ("1", itStruct->currentItem()->symbol());
+    ASSERT_FALSE(itStruct->isDone());
+    itStruct->next();
+    ASSERT_EQ("t(X, 2)", itStruct->currentItem()->symbol());
+    ASSERT_FALSE(itStruct->isDone());
+    itStruct->next();
+    ASSERT_EQ("Y", itStruct->currentItem()->symbol());
+    itStruct->next();
+    ASSERT_TRUE(itStruct->isDone());
 }
 
-
-// TEST(Iterator, empty_struct_bfs) {
-//     // s(s(), s(2))
-//     Struct s1(Atom("s"), {});
-//     Number two(2);
-//     Struct s2(Atom("s"), { &two });
-//     Struct s3(Atom("s"), { &s1, &s2 });
-//     Iterator<Term*> *it = s3.createBFSIterator();
-
-//     it->first();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("s()", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("s(2)", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("2", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_TRUE(it->isDone());
-//     delete it;
-
-
-// }
-
-// TEST(Iterator, test) {
-//     Number one(1);
-//     Iterator<Term*> *it = one.createIterator();
-//     cout << it << endl;
-//     ASSERT_EQ("1", it->currentItem()->symbol());
-//     ASSERT_TRUE(it->isDone());
-//     delete it;
-// }
-
-// TEST (Iterator, number_nullIterator) {
-//     Number one(1);
-//     Iterator<Term*> *it = one.createIterator();
-//     cout << it << endl;
-//     ASSERT_EQ("1", it->currentItem()->symbol());
-//     ASSERT_TRUE(it->isDone());
-//     delete it;
-// }
-
-// TEST (Iterator, variable_nullIterator) {
-//     Variable X("X");
-//     Iterator<Term*> *it = X.createIterator();
-//     cout << it << endl;
-//     ASSERT_EQ("X", it->currentItem()->symbol());
-//     ASSERT_TRUE(it->isDone());
-//     delete it; 
-// }
-
-// TEST (Iterator, atom_nullIterator) {
-//     Atom tom("tom");
-//     Iterator<Term*> *it = tom.createIterator();
-//     cout << it << endl;
-//     ASSERT_EQ("tom", it->currentItem()->symbol());
-//     ASSERT_TRUE(it->isDone());
-//     delete it;
-// }
-
-// TEST(Iterator, struct_iterator) {
-//     // s(X, tom, 1.22)
-//     Variable X("X");
-//     Atom tom("tom");
-//     Number n(1.22);
-//     Struct s(Atom("s"), { &X, &tom, &n });
-//     Iterator<Term*> *it = s.createBFSIterator();
-//     cout << it << endl;
-//     it->first();
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("X", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("tom", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("1.22", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_TRUE(it->isDone());
-//     delete it;
-// }
-
-// TEST(Iterator, complex_struct_iterator) {
-//     // triangle(point(1, 2), point(2, 3), point(4, 5));
-//     Number one(11);
-//     Number two(22);
-//     Number three(33);
-//     Number four(44);
-//     Number five(55);
-
-//     Struct p1(Atom("point"), { &one, &two });
-//     Struct p2(Atom("point"), { &two, &three });
-//     Struct p3(Atom("point"), { &four, &five });
-//     Struct t(Atom("triangle"), { &p1, &p2, &p3 });
-//     ASSERT_EQ("triangle(point(11, 22), point(22, 33), point(44, 55))", t.symbol());
-//     Iterator<Term*> *it = t.createBFSIterator();
-//     cout << it << endl;
-//     it->first(); // initialize
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("point(11, 22)", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("point(22, 33)", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("point(44, 55)", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("11", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("22", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("22", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("33", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("44", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("55", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_TRUE(it->isDone());
-
-// }   
-
-// TEST(BFSIterator, struct_bfs) {
-//     // s(s(X), 2, 3)
-//     Variable X("X");
-//     Number two(2);
-//     Number three(3);
-    
-//     Struct s(Atom("s"), { &X });
-//     Struct s1(Atom("s"), { &s, &two, &three });
-//     Iterator<Term*> *it = s1.createBFSIterator();
-//     it->first(); // initialize
-
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("s(X)", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("2", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("3", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("X", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_TRUE(it->isDone());
-
-//     delete it;
-// }
-
-// TEST(DFSIterator, struct_dfs) {
-//     Variable X("X");
-//     Number two(2);
-//     Number three(3);
-//     Struct s(Atom("s"), { &X });
-//     Struct s1(Atom("s"), { &s, &two, &three });
-//     Iterator<Term*> *it = s1.createDFSIterator();
-//     cout << it << endl;
-//     it->first(); // initialize
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("s(X)", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("X", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("2", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("3", it->currentItem()->symbol());
-//     it->next();
-    
-//     ASSERT_TRUE(it->isDone());
-//     delete it;
-// }
-
-// TEST(BFSIterator, simple_list_iterator) {
-//     // [496, X, terence_tao]
-//     Number n(496);
-//     Variable X("X");
-//     Atom terence_tao("terence_tao");
-//     List l({ &n, &X, &terence_tao });
-//     Iterator<Term*> *it = l.createDFSIterator();
-//     cout << it << endl;
-    
-//     it->first(); // initialize
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("496", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("X", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("terence_tao", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_TRUE(it->isDone());
-//     delete it;
-// }
-
-// TEST(BFSIterator, complex_list_bfsiterator) {
-//     // [[496, X, terence_tao], tom, jerry]
-//     Number n(496);
-//     Variable X("X");
-//     Atom terence_tao("terence_tao");
-//     List l({ &n, &X, &terence_tao });
-//     Atom tom("tom");
-//     Atom jerry("jerry");
-//     List l2({ &l, &tom, &jerry });
-    
-//     Iterator<Term*> *it = l2.createBFSIterator();
-//         cout << it << endl;
-
-//     it->first(); // initialize
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("[496, X, terence_tao]", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("tom", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("jerry", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("496", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("X", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("terence_tao", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_TRUE(it->isDone());
-//     delete it;
-// }
-
-// TEST(DFSIterator, complex_list_dfsiterator) {
-//     // [[496, X, terence_tao], tom, jerry]
-//     Number n(496);
-//     Variable X("X");
-//     Atom terence_tao("terence_tao");
-//     List l({ &n, &X, &terence_tao });
-//     Atom tom("tom");
-//     Atom jerry("jerry");
-//     List l2({ &l, &tom, &jerry });
-    
-//     Iterator<Term*> *it = l2.createDFSIterator();
-//     cout << it << endl;
-    
-//     it->first(); // initialize
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("[496, X, terence_tao]", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("496", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("X", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("terence_tao", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("tom", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("jerry", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_TRUE(it->isDone());
-//     delete it;
-// }
-
-// TEST(BFSIterator, complex_list_bfsiterator2) {
-//     // [[[496, X, terence_tao], tom, jerry], s(X, Y, [1, 2]), tom]
-//     Number n(496);
-//     Variable X("X");
-//     Atom terence_tao("terence_tao");
-//     List l({ &n, &X, &terence_tao });
-
-//     Atom tom("tom");
-//     Variable Y("Y");
-//     Number one(1);
-//     Number two(2);
-//     List l3({ &one, &two });
-//     Struct s(Atom("s"), { &X, &Y, &l3 });
-//     List l4({ &l, &s, &tom });
-//     ASSERT_EQ("[[496, X, terence_tao], s(X, Y, [1, 2]), tom]", l4.symbol());
-
-//     Iterator<Term*> *it = l4.createBFSIterator();
-//     cout << it << endl;
-//     it->first(); // initialize
-    
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("[496, X, terence_tao]", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("s(X, Y, [1, 2])", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("tom", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("496", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("X", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("terence_tao", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("X", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("Y", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("[1, 2]", it->currentItem()->symbol());
-//     it->next();
-
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("1", it->currentItem()->symbol());
-//     it->next();    ASSERT_FALSE(it->isDone());
-    
-//     ASSERT_EQ("2", it->currentItem()->symbol());
-//     it->next();
-//     ASSERT_TRUE(it->isDone());
-//     delete it;
-// }
-
-// TEST(DFSIterator, complext_list_dfsiterator2) {
-//     // [[[496, X, terence_tao], tom, jerry], s(X, Y, [1, 2]), tom]
-//     Number n(496);
-//     Variable X("X");
-//     Atom terence_tao("terence_tao");
-//     List l({ &n, &X, &terence_tao });
-
-//     Atom tom("tom");
-//     Variable Y("Y");
-//     Number one(1);
-//     Number two(2);
-//     List l3({ &one, &two });
-//     Struct s(Atom("s"), { &X, &Y, &l3 });
-//     List l4({ &l, &s, &tom });
-//     ASSERT_EQ("[[496, X, terence_tao], s(X, Y, [1, 2]), tom]", l4.symbol());
-
-//     Iterator<Term*> *it = l4.createDFSIterator();
-//     cout << it << endl;
-//     it->first(); // initialize
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("[496, X, terence_tao]", it->currentItem()->symbol());
-    
-//     it->next();
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("496", it->currentItem()->symbol());
-    
-//     it->next();
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("X", it->currentItem()->symbol());
-    
-//     it->next();
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("terence_tao", it->currentItem()->symbol());
-    
-//     it->next();
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("s(X, Y, [1, 2])", it->currentItem()->symbol());
-    
-//     it->next();
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("X", it->currentItem()->symbol());
-    
-//     it->next();
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("Y", it->currentItem()->symbol());
-    
-//     it->next();
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("[1, 2]", it->currentItem()->symbol());
-    
-//     it->next();
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("1", it->currentItem()->symbol());
-    
-//     it->next();
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("2", it->currentItem()->symbol());
-    
-//     it->next(); 
-//     ASSERT_FALSE(it->isDone());
-//     ASSERT_EQ("tom", it->currentItem()->symbol());
-    
-//     it->next();
-//     ASSERT_TRUE(it->isDone());
-//     delete it;
-// }
-
+TEST(iterator, nested_iterator) {
+    Number one(1);
+    Variable X("X");
+    Variable Y("Y");
+    Number two(2);
+    Struct t(Atom("t"), {&X, &two});
+    Struct s(Atom("s"), {&one, &t, &Y});
+    Iterator<Term*>* it = s.createIterator();
+    it->first();
+    it->next();
+    Struct* s2 = dynamic_cast<Struct*>(it->currentItem());
+    Iterator<Term*>* it2 = s2->createIterator();
+
+    it2->first();
+    ASSERT_EQ("X", it2->currentItem()->symbol());
+    ASSERT_FALSE(it2->isDone());
+    it2->next();
+    ASSERT_EQ("2", it2->currentItem()->symbol());
+    ASSERT_FALSE(it2->isDone());
+    it2->next();
+    ASSERT_TRUE(it2->isDone());
+}
+
+TEST(iterator, firstList) {
+    Number one(1);
+    Variable X("X");
+    Variable Y("Y");
+    Number two(2);
+    Struct t(Atom("t"), {&X, &two});
+    List l({&one, &t, &Y});
+    Iterator<Term*>* itList = l.createIterator();
+
+    itList->first();
+    ASSERT_EQ("1", itList->currentItem()->symbol());
+    ASSERT_FALSE(itList->isDone());
+    itList->next();
+    ASSERT_EQ("t(X, 2)", itList->currentItem()->symbol());
+    ASSERT_FALSE(itList->isDone());
+    itList->next();
+    ASSERT_EQ("Y", itList->currentItem()->symbol());
+    itList->next();
+    ASSERT_TRUE(itList->isDone());
+}
+
+TEST(iterator, NullIterator) {
+    Number one(1);
+    Iterator<Term*>* nullIterator = one.createIterator();
+    nullIterator->first();
+    ASSERT_TRUE(nullIterator->isDone());
+}
+
+TEST(iterator, structDFSIteratorData1) {
+    Struct s(Atom("s"),
+             {new Struct(Atom("a"), {new Atom("b"), new Atom("c")}),
+              new Struct(Atom("d"), {new Atom("e"), new Atom("f")}),
+              new Struct(Atom("g"), {new Atom("h"), new Atom("i")})});
+
+    Iterator<Term*>* it = s.createDFSIterator();
+    it->first();
+    EXPECT_EQ("a(b, c)", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("b", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("c", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("d(e, f)", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("e", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("f", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("g(h, i)", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("h", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("i", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_TRUE(it->isDone());
+}
+
+TEST(iterator, structDFSIteratorData2) {
+    Struct s(Atom("s"), {new Number(1),
+                         new Struct(Atom("d"), {new Atom("e"), new Atom("f")}),
+                         new Struct(Atom("g"), {new Variable("X")})});
+
+    Iterator<Term*>* it = s.createDFSIterator();
+    it->first();
+    EXPECT_EQ("1", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("d(e, f)", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("e", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("f", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("g(X)", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("X", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_TRUE(it->isDone());
+}
+
+TEST(iterator, listDFSIteratorData1) {
+    List l({new List({new Atom("b"), new Atom("c")}),
+            new List({new Atom("e"), new Atom("f")}),
+            new List({new Atom("h"), new Atom("i")})});
+
+    Iterator<Term*>* it = l.createDFSIterator();
+    it->first();
+    EXPECT_EQ("[b, c]", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("b", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("c", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("[e, f]", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("e", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("f", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("[h, i]", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("h", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("i", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_TRUE(it->isDone());
+}
+
+TEST(iterator, listDFSIteratorData2) {
+    List l({new Number(1), new List({new Atom("e"), new Atom("f")}),
+            new List({new Variable("X")})});
+
+    Iterator<Term*>* it = l.createDFSIterator();
+    it->first();
+    EXPECT_EQ("1", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("[e, f]", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("e", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("f", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("[X]", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("X", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_TRUE(it->isDone());
+}
+
+TEST(iterator, structBFSIteratorData1) {
+    Struct s(Atom("s"),
+             {new Struct(Atom("a"), {new Atom("b"), new Atom("c")}),
+              new Struct(Atom("d"), {new Atom("e"), new Atom("f")}),
+              new Struct(Atom("g"), {new Atom("h"), new Atom("i")})});
+
+    Iterator<Term*>* it = s.createBFSIterator();
+    it->first();
+    EXPECT_EQ("a(b, c)", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("d(e, f)", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("g(h, i)", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("b", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("c", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("e", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("f", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("h", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("i", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_TRUE(it->isDone());
+}
+
+TEST(iterator, structBFSIteratorData2) {
+    Struct s(Atom("s"), {new Number(1),
+                         new Struct(Atom("d"), {new Atom("e"), new Atom("f")}),
+                         new Struct(Atom("g"), {new Variable("X")})});
+
+    Iterator<Term*>* it = s.createBFSIterator();
+    it->first();
+    EXPECT_EQ("1", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("d(e, f)", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("g(X)", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("e", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("f", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("X", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_TRUE(it->isDone());
+}
+
+TEST(iterator, listBFSIteratorData1) {
+    List l({new List({new Atom("b"), new Atom("c")}),
+            new List({new Atom("e"), new Atom("f")}),
+            new List({new Atom("h"), new Atom("i")})});
+
+    Iterator<Term*>* it = l.createBFSIterator();
+    it->first();
+    EXPECT_EQ("[b, c]", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("[e, f]", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("[h, i]", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("b", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("c", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("e", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("f", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("h", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("i", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_TRUE(it->isDone());
+}
+
+TEST(iterator, listBFSIteratorData2) {
+    List l({new Number(1), new List({new Atom("e"), new Atom("f")}),
+            new List({new Variable("X")})});
+
+    Iterator<Term*>* it = l.createBFSIterator();
+    it->first();
+    EXPECT_EQ("1", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("[e, f]", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("[X]", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("e", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("f", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_EQ("X", it->currentItem()->symbol());
+    EXPECT_FALSE(it->isDone());
+
+    it->next();
+    EXPECT_TRUE(it->isDone());
+}
 #endif

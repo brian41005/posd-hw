@@ -3,6 +3,9 @@
 
 #include <string>
 #include <utility>
+#include <stack>
+#include <map>
+
 #include "atom.h"
 #include "number.h"
 #include "variable.h"
@@ -13,32 +16,32 @@
 
 using std::string;
 using std::pair;
+using std::stack;
+using std::map;
 
-class Parser
-{
-private:
-    Term *getTail();
-    int _pos;
-    bool isGetArgs;
-    Scanner _scanner;
-    Prolog *_prolog;
-    pair<string, int> _currentToken;
-    vector<Term *> _terms;
-    vector<Term *> _flyweight;
-    ParserInfo _parserInfo;
-public:
-    Parser(Scanner scanner);
+class Parser {
+   private:
+    Scanner* _scanner;
+    Prolog* _tokenInfo;
+    std::pair<std::string, size_t> _currentToken;
+
+    std::vector<Term*> _terms;
+    std::map<std::string, Term*> _symbolTable;
+    Node* _tree;
+    Term* createStruct(Atom*);
+    Term* createAtomOrStruct();
+    Term* createList();
+    Term* actualCreateTerm();
+    bool isEndOfStruct();
+
+   public:
+    std::vector<Term*> getArgs();
+    Parser(Scanner&);
+    Term* createTerm();
+    void createTerms();
+    std::vector<Term*> getTerms();
+
     void matchings();
-    void updateToken();
-    void processOpToken();
-    Term *getTerm();
-    Term *createTerm();
-    Term *termFactory();
-    Term *buildStruct(Atom *functor);
-    Term *buildListOrStruct();
-    vector<Term *> getArgs();
-    vector<Term *> getTerms();
-    Node *expressionTree();
-
+    Node* expressionTree();
 };
 #endif

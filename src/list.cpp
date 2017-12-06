@@ -1,17 +1,17 @@
 #include "../include/list.h"
-#include <iostream>
 #include "../include/variable.h"
-List::List():Struct(Atom("."), nullptr, nullptr){
 
-}
-List::List(vector<Term *> terms) {
+List::List(): Struct(Atom("."), {}){}
+List::List(Term *head, Term *tail) : Struct(Atom("."), {head, tail}) {}
+List::List(initializer_list<Term*> list):List(vector<Term*>(list)){}
+
+List::List(vector<Term*> terms):Struct(Atom("."), {}){
     if (terms.size() > 0) {
         _terms.push_back(terms[0]);
-        _terms.push_back(
-            new List(vector<Term *>(terms.begin() + 1, terms.end())));
+        _terms.push_back(new List(vector<Term *>(terms.begin() + 1, terms.end())));
     }
 }
-List::List(Term *head, Term *tail) : Struct(Atom("."), head, tail) {}
+
 
 Term *List::head() const {
     if (_terms.empty()) throw string("Accessing head in an empty list");
@@ -19,7 +19,7 @@ Term *List::head() const {
 }
 
 List *List::tail() const {
-    if (!(_terms.size() > 1)) throw string("Accessing tail in an empty list");
+   if (_terms.empty()) throw std::string("Accessing tail in an empty list");
     return _terms[1]->getList();
 }
 

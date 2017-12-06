@@ -22,162 +22,110 @@ class Iterator
 template <class T>
 class NullIterator : public Iterator<T>
 {
+  private:
+    T _instance;
   public:
-    void first()
-    {
-    }
- 
-    void next()
-    {
-    }
- 
-    bool isDone() const
-    {
-        return true;
-    }
- 
-    T currentItem() const
-    {
-        return nullptr;
-    }
+    NullIterator(T instance) : _instance(instance) {}
+    void first(){}
+    void next(){}
+    bool isDone() const{return true;}
+    T currentItem() const{return _instance;}
 };
  
 class StructIterator : public Iterator<Term *>
 {
-  public:
-    StructIterator(Struct *container);
- 
-    void first()
-    {
-        _index = 0;
-    }
- 
-    void next()
-    {
-        if (!isDone())
-            _index++;
-    }
- 
-    bool isDone() const;
-    Term *currentItem() const;
- 
   private:
     Struct *_container;
     int _index;
-};
- 
-class ListIterator : public Iterator<Term *>
-{
   public:
-    ListIterator(List *container);
- 
-    void first()
-    {
-        _index = 0;
-    }
- 
+    StructIterator(Struct *container);
+    void first();
     void next();
     bool isDone() const;
     Term *currentItem() const;
  
+};
+ 
+class ListIterator : public Iterator<Term *>
+{
   private:
-    List *_container;
-    int _index;
+     List* _origin, *_current;
+  public:
+    ListIterator(List *container);
+ 
+    void first();
+    void next();
+    bool isDone() const;
+    Term *currentItem() const;
+ 
 };
  
 template <class T>
 class BFSIterator : public Iterator<T>
 {
   public:
-    BFSIterator(Iterator<T> *origin) : _origin(origin), _activeIt(origin)
-    {
-    }
+    BFSIterator(Iterator<T> *origin) : _it(origin){}
  
     void first()
     {
-        _activeIt = _origin;
-        _activeIt->first();
+        _itQueue = std::queue<Iterator<T>*>();
+        _it->first();
+        _itQueue.push(_it);
     }
  
     void next()
     {
-        // check if current item is compound item or not //
-        Iterator<T> *temp = _activeIt->currentItem()->createIterator();
-        if (!temp->isDone())
-            _itQueue.push(temp);
- 
-        _activeIt->next();
-        if (_activeIt->isDone() && !_itQueue.empty())
-        {
-            _activeIt = _itQueue.front();
-            _itQueue.pop();
-        }
+        Iterator<T>* it = _itQueue.front();
+        Iterator<T>* itemIt = it->currentItem()->createIterator();
+        itemIt->first();
+        it->next();
+        if (!itemIt->isDone()) 
+            _itQueue.push(itemIt);
+        while (!_itQueue.empty() && _itQueue.front()->isDone()) _itQueue.pop();
     }
  
-    bool isDone() const
-    {
-        return (_itQueue.empty() && _activeIt->isDone());
-    }
+    bool isDone() const{return _itQueue.empty();}
  
-    T currentItem() const
-    {
-        //std::cout << _activeIt->currentItem() << std::endl;
-        return _activeIt->currentItem();
-    }
+    T currentItem() const{return _itQueue.front()->currentItem();}
  
-  private:
-    Iterator<T> *_origin;
-    Iterator<T> *_activeIt;
-    queue<Iterator<T> *> _itQueue;
+    private:
+        queue<Iterator<T>*> _itQueue;
+        Iterator<T>* _it;
 };
  
+
+
+
+
+
 template <class T>
 class DFSIterator : public Iterator<T>
 {
   public:
-    DFSIterator(Iterator<T> *origin) : _origin(origin), _activeIt(origin)
-    {
-    }
+    DFSIterator(Iterator<T> *origin) : _it(origin){}
  
     void first()
     {
-        _activeIt = _origin;
-        _activeIt->first();
+        _itStack = std::stack<Iterator<T>*>();
+        _it->first();
+        _itStack.push(_it);
     }
  
     void next()
     {
-        Iterator<T> *temp = _activeIt->currentItem()->createIterator();
-        if (!temp->isDone())
-        {
-            _itStack.push(_activeIt);
-            _activeIt = temp;
-        }
-        else
-        {
-            _activeIt->next();
-            while (_activeIt->isDone() && !_itStack.empty())
-            {
-                _activeIt = _itStack.top();
-                _itStack.pop();
-                _activeIt->next();
-            }
-        }
+        Iterator<T>* it = _itStack.top();
+        Iterator<T>* itemIt = it->currentItem()->createIterator();
+        itemIt->first();
+        it->next();
+        if (!itemIt->isDone()) _itStack.push(itemIt);
+        while (!_itStack.empty() && _itStack.top()->isDone()) _itStack.pop();
     }
  
-    bool isDone() const
-    {
-        return (_itStack.empty() && _activeIt->isDone());
-    }
- 
-    T currentItem() const
-    {
-        return _activeIt->currentItem();
-    }
+    bool isDone() const{return _itStack.empty();}
+    T currentItem() const{return _itStack.top()->currentItem();}
  
   private:
-    Iterator<T> *_origin;
-    Iterator<T> *_activeIt;
+    Iterator<T>* _it;
     stack<Iterator<T> *> _itStack;
 };
  

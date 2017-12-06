@@ -5,14 +5,17 @@
 #include <vector>
 #include "struct.h"
 #include "term.h"
-using std::runtime_error;
+#include <initializer_list>
+using std::initializer_list;
 using std::vector;
 
 class List : public Struct {
    public:
     List();
+    List(Term*, Term*);
     List(vector<Term *>);
-    List(Term *head, Term *tail);
+    List(initializer_list<Term *>);
+    
     Term *head() const;
     List *tail() const;
     // Term's interfaces

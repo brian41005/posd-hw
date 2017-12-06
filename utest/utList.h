@@ -24,7 +24,7 @@ TEST(List, constructor) {
 // Then #symbol() of the list should return "[8128, 496]"
 TEST(List, Numbers) {
     Number n1(8128), n2(496);
-    List l1(vector<Term *>{&n1, &n2});
+    List l1({&n1, &n2});
     ASSERT_EQ("[8128, 496]", l1.symbol());
 }
 
@@ -34,7 +34,7 @@ TEST(List, Numbers) {
 // alan_mathison_turing]"
 TEST(List, Atoms) {
     Atom a1("terence_tao"), a2("alan_mathison_turing");
-    List l1(vector<Term *>{&a1, &a2});
+    List l1({&a1, &a2});
     ASSERT_EQ("[terence_tao, alan_mathison_turing]", l1.symbol());
 }
 
@@ -43,7 +43,7 @@ TEST(List, Atoms) {
 // Then #symbol() of the list should return "[X, Y]"
 TEST(List, Vars) {
     Variable v1("X"), v2("Y");
-    List l1(vector<Term *>{&v1, &v2});
+    List l1({&v1, &v2});
     ASSERT_EQ("[X, Y]", l1.symbol());
 }
 
@@ -53,7 +53,7 @@ TEST(List, matchToAtomShouldFail) {
     Atom a1("tom"), a2("terence_tao");
     Number n1(496);
     Variable v1("X");
-    List l1(vector<Term *>{&n1, &v1, &a2});
+    List l1({&n1, &v1, &a2});
     ASSERT_FALSE(a1.match(l1));
 }
 
@@ -63,7 +63,7 @@ TEST(List, matchToNumberShouldFail) {
     Atom a1("terence_tao");
     Number n1(496), n2(8128);
     Variable v1("X");
-    List l1(vector<Term *>{&n1, &v1, &a1});
+    List l1({&n1, &v1, &a1});
     ASSERT_FALSE(n2.match(l1));
 }
 
@@ -73,7 +73,7 @@ TEST(List, matchToStructShouldFail) {
     Atom a1("terence_tao");
     Number n1(496);
     Variable v1("X");
-    List l1(vector<Term *>{&n1, &v1, &a1});
+    List l1({&n1, &v1, &a1});
     Struct s1(Atom("s"), vector<Term *>{&v1});
     ASSERT_FALSE(s1.match(l1));
 }
@@ -84,7 +84,7 @@ TEST(List, matchToVarShouldSucceed) {
     Atom a1("terence_tao");
     Number n1(496);
     Variable X("X");
-    List l1(vector<Term *>{&n1, &X, &a1});
+    List l1({&n1, &X, &a1});
     Variable Y("Y");
     ASSERT_TRUE(Y.match(l1));
     ASSERT_EQ("[496, X, terence_tao]", l1.symbol());
@@ -97,7 +97,7 @@ TEST(List, matchToVarOccuredInListShouldFail) {
     Atom a1("terence_tao");
     Number n1(496);
     Variable X("X");
-    List l1(vector<Term *>{&n1, &X, &a1});
+    List l1({&n1, &X, &a1});
     ASSERT_EQ("X", X.value());
     ASSERT_TRUE(X.match(l1));
     ASSERT_EQ("[496, X, terence_tao]", X.value());
@@ -107,7 +107,7 @@ TEST(List, matchToVarOccuredInListShouldFail) {
 //  X = [X]
 TEST(List, matchToVarOccuredInListShouldSucceed) {
     Variable X("X");
-    List l1(vector<Term *>{&X});
+    List l1({&X});
     ASSERT_EQ("X", X.value());
     ASSERT_TRUE(X.match(l1));
     ASSERT_EQ("[X]", X.value());
@@ -117,7 +117,7 @@ TEST(List, matchToVarOccuredInListShouldSucceed) {
 //  false.
 TEST(List, specialCase2) {
     Variable X("X");
-    List l1(vector<Term *>{&X});
+    List l1({&X});
     Number n1(1);
     ASSERT_EQ("X", X.value());
     ASSERT_TRUE(X.match(l1));
@@ -132,14 +132,14 @@ TEST(List, matchToSameListShouldSucceed) {
     Atom a1("terence_tao");
     Number n1(496);
     Variable X("X");
-    List l1(vector<Term *>{&n1, &X, &a1}), l2(vector<Term *>{&n1, &X, &a1});
+    List l1({&n1, &X, &a1}), l2({&n1, &X, &a1});
     
     ASSERT_TRUE(l1.match(l2));
 }
 
 TEST(List, matchToSameListShouldSucceed2) {
     Variable X("X");
-    List l1(vector<Term *>{&X}), l2(vector<Term *>{&X});
+    List l1({&X}), l2({&X});
 
     ASSERT_TRUE(l1.match(l2));
 }
@@ -149,7 +149,7 @@ TEST(List, matchToSameListWithDiffVarNameShouldSucceed) {
     Atom a1("terence_tao");
     Number n1(496);
     Variable X("X"), Y("Y");
-    List l1(vector<Term *>{&n1, &X, &a1}), l2(vector<Term *>{&n1, &Y, &a1});
+    List l1({&n1, &X, &a1}), l2({&n1, &Y, &a1});
 
     ASSERT_TRUE(l1.match(l2));
 }
@@ -158,7 +158,7 @@ TEST(List, matchToSameListWithDiffVarNameShouldSucceed) {
 // true.
 TEST(List, matchToSameListWithDiffVarNameShouldSucceed2) {
     Variable X("X"), Y("Y");
-    List l1(vector<Term*>{&X, &Y}), l2(vector<Term*>{&Y, &X});
+    List l1({&X, &Y}), l2({&Y, &X});
     ASSERT_TRUE(l1.match(l2));
 }
 
@@ -168,7 +168,7 @@ TEST(List, matchToVarToAtominListShouldSucceed) {
     Atom a1("terence_tao");
     Number n1(496), n2(8128);
     Variable X("X");
-    List l1(vector<Term *>{&n1, &X, &a1}), l2(vector<Term *>{&n1, &n2, &a1});
+    List l1({&n1, &X, &a1}), l2({&n1, &n2, &a1});
 
     ASSERT_TRUE(l1.match(l2));
     ASSERT_EQ("8128", X.value());
@@ -181,7 +181,7 @@ TEST(List, matchVarinListToAtomShouldSucceed) {
     Atom a1("terence_tao"), a2("alan_mathison_turing");
     Number n1(496);
     Variable X("X"), Y("Y");
-    List l1(vector<Term *>{&n1, &X, &a1});
+    List l1({&n1, &X, &a1});
 
     ASSERT_TRUE(Y.match(l1));
     ASSERT_TRUE(X.match(a2));
@@ -195,7 +195,7 @@ TEST(List, matchVarinListToAtomShouldSucceed) {
 // H = first, T = [second, third].
 TEST(List, headAndTailMatching1) {
     Atom f("first"), s("second"), t("third");
-    List l(vector<Term *>{&f, &s, &t});
+    List l({&f, &s, &t});
 
     EXPECT_EQ(string("first"), l.head()->symbol());
     EXPECT_EQ(string("[second, third]"), l.tail()->value());
@@ -206,7 +206,7 @@ TEST(List, headAndTailMatching1) {
 // H = second, T = [third].
 TEST(List, headAndTailMatching2) {
     Atom f("first"), s("second"), t("third");
-    List l(vector<Term *>{&f, &s, &t});
+    List l({&f, &s, &t});
 
     EXPECT_EQ(string("second"), l.tail()->head()->value());
     EXPECT_EQ(string("[third]"), l.tail()->tail()->value());
@@ -216,8 +216,8 @@ TEST(List, headAndTailMatching2) {
 // H = [first], T = [second, third].
 TEST(List, headAndTailMatching3) {
     Atom f("first"), s("second"), t("third");
-    List l1(vector<Term *>{&f});
-    List l2(vector<Term *>{&l1, &s, &t});
+    List l1({&f});
+    List l2({&l1, &s, &t});
 
     EXPECT_EQ("[first]", l2.head()->value());
     EXPECT_EQ("[second, third]", l2.tail()->value());
@@ -227,7 +227,7 @@ TEST(List, headAndTailMatching3) {
 // H = third, T = [].
 TEST(List, headAndTailMatching4) {
     Atom f("first"), s("second"), t("third");
-    List l(vector<Term *>{&f, &s, &t});
+    List l({&f, &s, &t});
 
     EXPECT_EQ("third", l.tail()->tail()->head()->value());
     EXPECT_EQ("[]", l.tail()->tail()->tail()->value());

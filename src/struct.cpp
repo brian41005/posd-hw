@@ -2,17 +2,17 @@
 #include "../include/variable.h"
 
 #include <iostream>
-Struct::Struct(): _name(Atom(".")), _terms(vector<Term*>{}) {
+// Struct::Struct(): _name(Atom(".")), _terms(vector<Term*>{}) {
 
-}
+// }
 Struct::Struct(Atom atom, vector<Term*> terms) : _name(atom), _terms(terms) {}
 
-Struct::Struct(Atom name, Term* head, Term* tail):_name(name){
-    if (head)
-        _terms.push_back(head);
-    if (tail)
-        _terms.push_back(tail);
-}
+// Struct::Struct(Atom name, Term* head, Term* tail):_name(name){
+//     if (head)
+//         _terms.push_back(head);
+//     if (tail)
+//         _terms.push_back(tail);
+// }
 Atom Struct::name() { return _name; }
 
 Term* Struct::args(int i) { return (i < _terms.size())?_terms[i]:nullptr; }

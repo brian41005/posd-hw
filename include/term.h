@@ -23,13 +23,9 @@ class Term {
     virtual List*     getList() { return NULL; }
 
     //iterator
-    virtual Iterator<Term*>* createIterator() {return new NullIterator<Term*>();}
-    Iterator<Term*>* createDFSIterator() {
-        return new DFSIterator<Term*>(createIterator());
-    }
-    Iterator<Term*>* createBFSIterator() {
-        return new BFSIterator<Term*>(createIterator());
-        }
+    virtual Iterator<Term*>* createIterator() {return new NullIterator<Term*>(this);}
+    Iterator<Term*>* createDFSIterator() {return new DFSIterator<Term*>(createIterator());}
+    Iterator<Term*>* createBFSIterator() {return new BFSIterator<Term*>(createIterator());}
 };
 
 #endif

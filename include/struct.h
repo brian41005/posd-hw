@@ -15,8 +15,8 @@ class Struct : public Term {
     Atom _name;
     
    public:
-    Struct();
-    Struct(Atom, Term*, Term*);
+    //Struct();
+    //Struct(Atom, Term*, Term*);
     Struct(Atom, vector<Term *>);
     Atom name();
     Term *args(int);

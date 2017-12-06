@@ -5,10 +5,6 @@ string Atom::symbol() { return _symbol; }
 
 string Atom::value() { return _symbol; }
 
-bool Atom::match(Variable& v) {
-    return v.match(*this);
-}
+bool Atom::match(Variable& v) {return v.match(*this);}
 
-bool Atom::match(Term& term) {
-    return this->symbol() == term.symbol();
-}
+bool Atom::match(Term& term) {return this->symbol() == term.symbol();}
