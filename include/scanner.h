@@ -13,12 +13,20 @@ class Scanner
 private:
     Prolog *_prolog;
     string _buffer;
-    int _position;
+    int _position, _peekPosition;
     bool isNumberChar(bool *hasPoint);
     
 public:
     Scanner(string input="");
     pair<string, int> nextToken();
+    pair<std::string, int> peekNextToken();//
+    int peekSkipLeadingSpace();//
+    std::string peekAtom();//
+    std::string peekAtomSC();//
+    std::string peekNumber();//
+    std::string peekVariable();//
+    char peekCurrentChar();//
+    char peekChar();//
     int skipLeadingWhiteSpace();
     string extractNumber();
     string extractAtom();
@@ -27,8 +35,7 @@ public:
     char extractChar();
     char currentChar();
     int position();
-    char nextChar();
-    bool isDone();
+
 
 };
 

@@ -1,7 +1,7 @@
 #ifndef NODE_H
 #define NODE_H
 #include "term.h"
-
+#include <string>
 enum Operators
 {
     SEMICOLON,
@@ -14,10 +14,8 @@ static Operators operatorsEnum(std::string tokenString) {
         return EQUALITY;
     else if (tokenString == ",")
         return COMMA;
-    else if (tokenString == ";")
-        return SEMICOLON;
     else
-        return TERM;
+        return SEMICOLON;
 }
 
 static int operatorsProity(Operators op) {
@@ -32,6 +30,13 @@ static int operatorsProity(Operators op) {
             return 999;
     }
 }
+
+static std::string operatorsEnumToString(Operators op) {
+    if (op == COMMA)
+        return ",";
+    else
+        return ";";
+}
 class Node
 {
   public:
@@ -41,7 +46,9 @@ class Node
     Term *term;
     Node *left;
     Node *right;
+    Node* parent;
     bool evaluate();
+    std::string getResult();
 };
 
 #endif

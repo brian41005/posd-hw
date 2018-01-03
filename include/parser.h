@@ -40,8 +40,9 @@ class Parser {
     Term* createTerm();
     void createTerms();
     std::vector<Term*> getTerms();
-
-    void matchings();
+    void buildExpression();
+    string getResult();
     Node* expressionTree();
+    // void matchings();
 };
 #endif
