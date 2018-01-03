@@ -14,7 +14,6 @@ TEST(ShellException, exception_OnlyVariable) {
     }
 }
 
-
 TEST(ShellException, exceptionMissingPeriodToken) {
     Scanner s("X=1");
     Parser p(s);
